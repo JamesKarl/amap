@@ -1,8 +1,8 @@
 name: amap
 description: A wrapper of AMap for both Android and iOS.
 version: 0.0.1
-author: James Karl(jameskarl2@163.com)
-homepage:
+author: James Karl <jameskarl2@163.com>
+homepage: https://github.com/JamesKarl/amap
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
