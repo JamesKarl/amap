@@ -1,8 +1,5 @@
+import 'package:amap/amap.dart';
 import 'package:flutter/material.dart';
-
-import 'MapView.dart';
-import 'MapViewController.dart';
-import 'bean/MarkerData.dart';
 
 class MapPage extends StatelessWidget {
   final MapViewController mapViewController = MapViewController();
@@ -20,8 +17,7 @@ class MapPage extends StatelessWidget {
         onPressed: () {
           mapViewController.getCenterPoint().then((point) {
             if (point != null) {
-              mapViewController.addMarker(
-                  point, MarkerData("point", title: "SSSSSSS"));
+              print("xxx $point");
             }
           });
         },
