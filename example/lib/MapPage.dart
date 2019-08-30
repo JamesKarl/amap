@@ -39,6 +39,11 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
   @override
   void onMapClicked(MapClickedEvent event) {
     // TODO: implement onMapClicked
+    print(event);
+    mapViewController.addMarker(
+      MapPoint(latitude: event.latitude, longitude: event.longitude),
+      MarkerData("23", title: "hello, world"),
+    );
   }
 
   @override
