@@ -4,15 +4,47 @@ import android.util.Log
 import com.amap.api.maps.TextureMapView
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.MarkerOptions
+import com.jameskarl.amap.AmapPlugin
+import com.jameskarl.amap.map.bean.ChannelMessageData
+import com.jameskarl.amap.map.bean.toMarkerData
 import com.jameskarl.shop.toJson
 import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.PluginRegistry
+import io.flutter.plugin.common.StringCodec
 import org.json.JSONObject
 
 class MapMessageHandler(
         private val registrar: PluginRegistry.Registrar,
-        private val mapView: TextureMapView
+        private val mapView: TextureMapView,
+        viewId: Int
 ) : BasicMessageChannel.MessageHandler<String> {
+
+    private val mapMethodChannelName = "${AmapPlugin.mapViewType}/map$viewId"
+
+    private val messageChannel: BasicMessageChannel<String> = BasicMessageChannel<String>(registrar.messenger(), mapMethodChannelName, StringCodec.INSTANCE)
+
+    fun setup() {
+        messageChannel.setMessageHandler(this)
+        mapView.map.setOnMarkerClickListener {
+            it.showInfoWindow()
+            sendMessageToFlutter(ChannelMessageData(MapMethods.ON_MARKER_CLICKED, it.toMarkerData()))
+            true
+        }
+        mapView.map.setOnMapClickListener {
+            sendMessageToFlutter(ChannelMessageData(MapMethods.ON_MAP_CLICKED, it))
+        }
+        mapView.map.setOnMapLoadedListener {
+            sendMessageToFlutter(ChannelMessageData(MapMethods.ON_MAP_LOADED))
+        }
+        Log.d("MAP", mapMethodChannelName)
+    }
+
+    private fun sendMessageToFlutter(message: ChannelMessageData) {
+        val msg = message.toJson()
+        Log.d("MAP", msg)
+        messageChannel.send(msg)
+    }
+
     override fun onMessage(message: String?, reply: BasicMessageChannel.Reply<String>) {
         if (message != null) {
             try {
