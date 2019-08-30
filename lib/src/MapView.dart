@@ -2,9 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../amap.dart';
 import 'MapViewController.dart';
-
-const _mapViewType = "myb.com/mapView";
 
 class MapView extends StatefulWidget {
   final MapViewController controller;
@@ -28,12 +27,12 @@ class _MapViewState extends State<MapView> {
   Widget build(BuildContext context) {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       return UiKitView(
-        viewType: _mapViewType,
+        viewType: Amap.mapViewType,
         onPlatformViewCreated: _initMessageChannel,
       );
     } else if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
-        viewType: _mapViewType,
+        viewType: Amap.mapViewType,
         onPlatformViewCreated: _initMessageChannel,
       );
     } else {
@@ -45,7 +44,7 @@ class _MapViewState extends State<MapView> {
 
   void _initMessageChannel(int id) {
     _basicMessageChannel =
-        BasicMessageChannel("com.myb/mapView/map$id", StringCodec());
+        BasicMessageChannel("${Amap.mapViewType}/map$id", StringCodec());
     print("message channel created with id: $id");
     widget.controller?.bindMessageChannel(_basicMessageChannel);
   }

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.amap.api.maps.TextureMapView
+import com.jameskarl.amap.AmapPlugin
 import com.jameskarl.amap.map.bean.ChannelMessageData
 import com.jameskarl.amap.map.bean.toMarkerData
 import com.jameskarl.shop.toJson
@@ -17,8 +18,7 @@ import io.flutter.plugin.platform.PlatformView
 
 class PlatformMapView(private val context: Context, private val id: Int, private val registrar: PluginRegistry.Registrar) : PlatformView, Application.ActivityLifecycleCallbacks {
 
-    private val methodChannelPrefix = "com.myb/mapView"
-    private val mapMethodChannelName = "$methodChannelPrefix/map$id"
+    private val mapMethodChannelName = "${AmapPlugin.mapViewType}/map$id"
 
     private val mapView = TextureMapView(context)
     private val registrarActivityHashCode: Int = registrar.activity().hashCode()

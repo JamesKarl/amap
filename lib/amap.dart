@@ -2,12 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
+export 'src/MapView.dart';
+export 'src/MapViewController.dart';
+export 'src/MessageReply.dart';
+
 class Amap {
-  static const MethodChannel _channel =
-      const MethodChannel('amap');
+  static const mapViewType = "com.jameskarl/mapView";
+  static const channelName = "com.jameskarl/map";
+
+  static const MethodChannel _channel = const MethodChannel(channelName);
 
   static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+    return _channel.invokeMethod('getPlatformVersion');
   }
 }
