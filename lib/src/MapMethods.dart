@@ -1,8 +1,8 @@
 abstract class MapMethods {
-  static const ON_MAP_LOADED = "onMapLoaded";
-  static const ON_MAP_CLICKED = "onMapClicked";
-  static const ON_MARKER_CLICKED = "onMarkerClicked";
+  static const onMapLoaded = "onMapLoaded";
+  static const onMapClicked = "onMapClicked";
+  static const onMarkerClicked = "onMarkerClicked";
 
-  static const MARKER_ADD = "markerAdd";
-  static const GET_CENTER_POINT = "getCenterPoint";
+  static const addMarker = "addMarker";
+  static const getCenter = "getCenter";
 }

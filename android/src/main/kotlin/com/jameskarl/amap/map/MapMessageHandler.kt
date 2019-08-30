@@ -27,14 +27,14 @@ class MapMessageHandler(
         messageChannel.setMessageHandler(this)
         mapView.map.setOnMarkerClickListener {
             it.showInfoWindow()
-            sendMessageToFlutter(ChannelMessageData(MapMethods.ON_MARKER_CLICKED, it.toMarkerData()))
+            sendMessageToFlutter(ChannelMessageData(MapMethods.onMarkerClicked, it.toMarkerData()))
             true
         }
         mapView.map.setOnMapClickListener {
-            sendMessageToFlutter(ChannelMessageData(MapMethods.ON_MAP_CLICKED, it))
+            sendMessageToFlutter(ChannelMessageData(MapMethods.onMapClicked, it))
         }
         mapView.map.setOnMapLoadedListener {
-            sendMessageToFlutter(ChannelMessageData(MapMethods.ON_MAP_LOADED))
+            sendMessageToFlutter(ChannelMessageData(MapMethods.onMapLoaded))
         }
         Log.d("MAP", mapMethodChannelName)
     }
@@ -67,8 +67,8 @@ class MapMessageHandler(
     private fun handle(methodId: String, data: Any?, reply: BasicMessageChannel.Reply<String>) {
 
         when (methodId) {
-            MapMethods.GET_CENTER -> getCenterPoint(reply)
-            MapMethods.MARKER_ADD -> {
+            MapMethods.getCenter -> getCenterPoint(reply)
+            MapMethods.addMarker -> {
                 if (data is JSONObject)
                     addMarker(data, reply)
                 else
@@ -94,7 +94,7 @@ class MapMessageHandler(
     private fun getCenterPoint(reply: BasicMessageChannel.Reply<String>) {
         val target = mapView.map.cameraPosition.target
         val data = mapOf(
-                "id" to MapMethods.GET_CENTER,
+                "id" to MapMethods.getCenter,
                 "data" to mapOf(
                         "longitude" to target.longitude,
                         "latitude" to target.latitude

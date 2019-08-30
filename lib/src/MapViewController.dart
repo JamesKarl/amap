@@ -26,7 +26,7 @@ class MapViewController {
   ///在指定的位置（经纬度）添加Marker
   void addMarker(MapPoint at, MarkerData marker) {
     final data = {
-      "id": MapMethods.MARKER_ADD,
+      "id": MapMethods.addMarker,
       "data": {
         "at": at,
         "marker": marker,
@@ -37,7 +37,7 @@ class MapViewController {
 
   ///获取屏幕中心点经纬度
   Future<MapPoint> getCenterPoint() async {
-    final data = {"id": MapMethods.GET_CENTER_POINT};
+    final data = {"id": MapMethods.getCenter};
     final res = await _basicMessageChannel.send(jsonEncode(data));
     final msg = _handleReply(res);
     if (msg.success && msg.data != null) {

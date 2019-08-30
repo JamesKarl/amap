@@ -1,11 +1,11 @@
 package com.jameskarl.amap.map
 
 object MapMethods {
-    const val ON_MAP_LOADED = "onMapLoaded"
+    const val onMapLoaded = "onMapLoaded"
 
-    const val ON_MAP_CLICKED = "onMapClicked"
-    const val ON_MARKER_CLICKED = "onMarkerClicked"
+    const val onMapClicked = "onMapClicked"
+    const val onMarkerClicked = "onMarkerClicked"
 
-    const val MARKER_ADD = "markerAdd"
-    const val GET_CENTER = "getCenterPoint"
+    const val addMarker = "addMarker"
+    const val getCenter = "getCenter"
 }
