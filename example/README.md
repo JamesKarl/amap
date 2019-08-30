@@ -1,6 +1,6 @@
-# example
+# amap_example
 
-A new Flutter project.
+Demonstrates how to use the amap plugin.
 
 ## Getting Started
 

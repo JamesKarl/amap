@@ -1,4 +1,4 @@
-package com.example.example
+package com.jameskarl.amap_example
 
 import android.os.Bundle
 
