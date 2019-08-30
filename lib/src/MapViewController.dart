@@ -4,11 +4,23 @@ import 'package:flutter/services.dart';
 
 import 'MapMethods.dart';
 import 'MessageReply.dart';
+import 'bean/MapClickedEvent.dart';
 import 'bean/MapData.dart';
 import 'bean/MarkerData.dart';
 
+class MapEventListener {
+  void onMapClicked(MapClickedEvent event) {}
+
+  void onMarkerClicked() {}
+
+  void onMapLoaded() {}
+}
+
 class MapViewController {
+  final MapEventListener mapEventListener;
   BasicMessageChannel _basicMessageChannel;
+
+  MapViewController(this.mapEventListener) : assert(mapEventListener != null);
 
   ///初始化与地图交互的通道
   void bindMessageChannel(BasicMessageChannel channel) {
@@ -20,7 +32,12 @@ class MapViewController {
   }
 
   Future<dynamic> _channelMessageHandler(dynamic message) async {
-    print("_basicMessageChannel $message");
+    print("_basicMessageChannel $message  ${message.runtimeType}");
+    try {
+      MapMethods.onMessage(mapEventListener, jsonDecode(message));
+    } catch (e) {
+      print(e);
+    }
   }
 
   ///在指定的位置（经纬度）添加Marker

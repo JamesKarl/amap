@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 export 'src/MapView.dart';
 export 'src/MapViewController.dart';
 export 'src/MessageReply.dart';
+export 'src/bean/MapClickedEvent.dart';
 
 class Amap {
   static const mapViewType = "com.jameskarl/mapView";

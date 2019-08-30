@@ -1,8 +1,19 @@
 import 'package:amap/amap.dart';
 import 'package:flutter/material.dart';
 
-class MapPage extends StatelessWidget {
-  final MapViewController mapViewController = MapViewController();
+class MapPage extends StatefulWidget {
+  @override
+  _MapPageState createState() => _MapPageState();
+}
+
+class _MapPageState extends State<MapPage> implements MapEventListener {
+  MapViewController mapViewController;
+
+  @override
+  void initState() {
+    mapViewController = MapViewController(this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,5 +34,20 @@ class MapPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  void onMapClicked(MapClickedEvent event) {
+    // TODO: implement onMapClicked
+  }
+
+  @override
+  void onMapLoaded() {
+    // TODO: implement onMapLoaded
+  }
+
+  @override
+  void onMarkerClicked() {
+    // TODO: implement onMarkerClicked
   }
 }
