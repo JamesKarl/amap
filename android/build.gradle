@@ -55,6 +55,8 @@ dependencies {
     implementation 'com.amap.api:3dmap:6.7.0'
     implementation 'com.amap.api:location:4.6.0'
     implementation 'com.amap.api:search:6.5.0.1'
+
+    implementation 'com.alibaba:fastjson:1.2.51'
 }
 
 repositories {
