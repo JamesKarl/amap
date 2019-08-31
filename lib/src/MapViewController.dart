@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amap/src/mixin/map_info.dart';
 import 'package:flutter/services.dart';
 
 import 'MapMethods.dart';
@@ -19,7 +20,7 @@ class MapEventListener {
   void onMapLoaded() {}
 }
 
-class MapViewController extends NativeMessenger with MarkerMixin {
+class MapViewController extends NativeMessenger with MarkerMixin, MapInfoMixin {
   final MapEventListener mapEventListener;
   BasicMessageChannel _basicMessageChannel;
 

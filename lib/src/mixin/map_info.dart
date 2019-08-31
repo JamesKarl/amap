@@ -2,7 +2,7 @@ import 'package:amap/amap.dart';
 
 import '../MapMethods.dart';
 
-mixin MapInfo on NativeMessenger {
+mixin MapInfoMixin on NativeMessenger {
   ///获取屏幕中心点经纬度
   Future<MapPoint> getCenterPoint() async {
     return sendMessageToNative(MapMethods.getCenter).then((reply) {
