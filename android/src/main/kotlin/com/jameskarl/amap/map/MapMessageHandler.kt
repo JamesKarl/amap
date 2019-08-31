@@ -73,6 +73,7 @@ class MapMessageHandler(
 
     private fun sendJsonMessageToFlutter(message: ReplyToFlutter) {
         val msg = message.toJson()
+        Log.d("MAP", "sendJsonMessageToFlutter $message")
         messageChannel.send(msg)
     }
 
