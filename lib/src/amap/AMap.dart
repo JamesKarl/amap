@@ -11,3 +11,35 @@ class OnCameraChangeListener {
   ///position - 一个cameraPosition对象，表示地图的当前状态。
   void onCameraChangeFinish(CameraPosition position) {}
 }
+
+class UiSettings {
+  int logoPosition;
+  int zoomPosition;
+  bool compassEnabled;
+  bool gestureScaleByMapCenter;
+  bool indoorSwitchEnabled;
+  bool myLocationButtonEnabled;
+  bool rotateGesturesEnabled;
+  bool scaleControlsEnabled;
+  bool scrollGesturesEnabled;
+  bool tiltGesturesEnabled;
+  bool zoomControlsEnabled;
+  bool zoomGesturesEnabled;
+  bool allGesturesEnabled;
+
+  UiSettings({
+    this.logoPosition,
+    this.zoomPosition,
+    this.compassEnabled,
+    this.gestureScaleByMapCenter,
+    this.indoorSwitchEnabled,
+    this.myLocationButtonEnabled,
+    this.rotateGesturesEnabled,
+    this.scaleControlsEnabled,
+    this.scrollGesturesEnabled,
+    this.tiltGesturesEnabled,
+    this.zoomControlsEnabled,
+    this.zoomGesturesEnabled,
+    this.allGesturesEnabled,
+  });
+}
