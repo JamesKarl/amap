@@ -4,7 +4,6 @@ import android.util.Log
 import com.amap.api.maps.AMap
 import com.jameskarl.amap.map.apis.MapInfoApi
 import com.jameskarl.amap.map.apis.MarkerApi
-import com.jameskarl.shop.toJson
 import io.flutter.plugin.common.BasicMessageChannel
 
 object MapMethods {

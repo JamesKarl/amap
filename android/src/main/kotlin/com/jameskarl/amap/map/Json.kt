@@ -1,4 +1,4 @@
-package com.jameskarl.shop
+package com.jameskarl.amap.map
 
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference

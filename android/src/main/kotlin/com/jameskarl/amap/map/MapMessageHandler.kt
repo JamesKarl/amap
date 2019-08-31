@@ -4,7 +4,6 @@ import android.util.Log
 import com.amap.api.maps.TextureMapView
 import com.jameskarl.amap.AmapPlugin
 import com.jameskarl.amap.map.bean.toMarkerData
-import com.jameskarl.shop.toJson
 import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.StringCodec
