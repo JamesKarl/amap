@@ -52,7 +52,15 @@ abstract class MapMethods {
     } else if (methodId == onMapLoaded) {
       listener.onMapLoaded();
     } else if (methodId == onMarkerClicked) {
-      listener.onMarkerClicked();
+      listener.onMarkerClicked(MarkerOptions.fromJson(data));
+    } else if (methodId == onInfoWindowClicked) {
+      listener.onInfoWindowClicked(MarkerOptions.fromJson(data));
+    } else if (methodId == onMarkerDragged) {
+      listener.onMarkerDragged(MarkerOptions.fromJson(data));
+    } else if (methodId == onMarkerDragStart) {
+      listener.onMarkerDragStart(MarkerOptions.fromJson(data));
+    } else if (methodId == onMarkerDragEnd) {
+      listener.onMarkerDragEnd(MarkerOptions.fromJson(data));
     } else {
       print(
           "message from native platform not  consumed. methodId=$methodId data=$data ");

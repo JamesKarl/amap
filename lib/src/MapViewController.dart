@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:amap/src/mixin/map_info.dart';
 import 'package:flutter/services.dart';
 
+import '../amap.dart';
 import 'MapMethods.dart';
 import 'MessageReply.dart';
 import 'bean/MapClickedEvent.dart';
@@ -12,10 +13,20 @@ abstract class NativeMessenger {
   Future<MessageReply> sendMessageToNative(String methodId, {dynamic data});
 }
 
-class MapEventListener {
-  void onMapClicked(MapClickedEvent event) {}
+class MarkerEventListener {
+  void onMarkerClicked(MarkerOptions marker) {}
 
-  void onMarkerClicked() {}
+  void onMarkerDragged(MarkerOptions marker) {}
+
+  void onMarkerDragStart(MarkerOptions marker) {}
+
+  void onMarkerDragEnd(MarkerOptions marker) {}
+
+  void onInfoWindowClicked(MarkerOptions marker) {}
+}
+
+class MapEventListener extends MarkerEventListener {
+  void onMapClicked(MapClickedEvent event) {}
 
   void onMapLoaded() {}
 }
