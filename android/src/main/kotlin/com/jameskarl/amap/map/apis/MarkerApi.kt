@@ -24,7 +24,7 @@ class MarkerApi {
                 val markerOptions = markerOptionData.toMarkerOptions()
                 markerOptionData.icon?.let { icon ->
                     PlatformMapView.getFlutterAsset(icon)?.let { fd ->
-                        val bitmap = BitmapFactory.decodeFileDescriptor(fd.fileDescriptor)
+                        val bitmap = BitmapFactory.decodeStream(fd.createInputStream())
                         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                     }
                 }
