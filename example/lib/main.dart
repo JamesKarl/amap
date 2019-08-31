@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text('Running on: $_platformVersion\n'),
+                  Image.asset("assets/icons/ico_test.png"),
                   RaisedButton(
                     child: Text("MAP"),
                     onPressed: () {

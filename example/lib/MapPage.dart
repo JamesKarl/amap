@@ -87,6 +87,7 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
     option..infoWindowEnable = true;
     option.draggable = true;
     option.flat = false;
+    option.icon = "assets/icons/ico_test.png";
     mapViewController.addMarker(option);
   }
 
