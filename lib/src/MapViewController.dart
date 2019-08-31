@@ -5,8 +5,12 @@ import 'package:flutter/services.dart';
 import 'MapMethods.dart';
 import 'MessageReply.dart';
 import 'bean/MapClickedEvent.dart';
-import 'bean/MapData.dart';
-import 'bean/MarkerData.dart';
+import 'mixin/marker.dart';
+
+abstract class NativeMessenger {
+  Future<MessageReply> sendMessageToNative(String methodId,
+      {Map<String, dynamic> data});
+}
 
 class MapEventListener {
   void onMapClicked(MapClickedEvent event) {}
@@ -16,7 +20,7 @@ class MapEventListener {
   void onMapLoaded() {}
 }
 
-class MapViewController {
+class MapViewController extends NativeMessenger with MarkerMixin {
   final MapEventListener mapEventListener;
   BasicMessageChannel _basicMessageChannel;
 
@@ -40,7 +44,7 @@ class MapViewController {
     }
   }
 
-  Future<MessageReply> _sendMessageToNative(
+  Future<MessageReply> sendMessageToNative(
     String methodId, {
     Map<String, dynamic> data,
   }) {
@@ -74,27 +78,5 @@ class MapViewController {
     } else {
       return MessageReply.error(methodId, "原生代码返回的数据必须是字符串");
     }
-  }
-
-  ///在指定的位置（经纬度）添加Marker
-  Future<MessageReply> addMarker(MapPoint at, MarkerData marker) {
-    return _sendMessageToNative(MapMethods.addMarker, data: {
-      "at": at,
-      "marker": marker,
-    });
-  }
-
-  ///获取屏幕中心点经纬度
-  Future<MapPoint> getCenterPoint() async {
-    return _sendMessageToNative(MapMethods.getCenter).then((reply) {
-      if (reply.success && reply.data != null) {
-        return MapPoint(
-          longitude: reply.data["longitude"],
-          latitude: reply.data["latitude"],
-        );
-      } else {
-        return null;
-      }
-    });
   }
 }
