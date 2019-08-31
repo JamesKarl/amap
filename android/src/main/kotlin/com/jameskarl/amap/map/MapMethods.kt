@@ -9,21 +9,54 @@ import org.json.JSONObject
 
 object MapMethods {
     const val onMapLoaded = "onMapLoaded"
-
     const val onMapClicked = "onMapClicked"
-    const val onMarkerClicked = "onMarkerClicked"
 
+    ///控件交互
+    private const val setZoomControlsEnabled = "setZoomControlsEnabled"
+    private const val setCompassEnabled = "setCompassEnabled"
+    private const val setMyLocationButtonEnabled = "setMyLocationButtonEnabled"
+    private const val setMyLocationEnabled = "setMyLocationEnabled"
+    private const val setScaleControlsEnabled = "setScaleControlsEnabled"
+    private const val setLogoPosition = "setLogoPosition"
+
+    ///手势交互
+    private const val setZoomGesturesEnabled = "setZoomGesturesEnabled"
+    private const val setScrollGesturesEnabled = "setScrollGesturesEnabled"
+    private const val setRotateGesturesEnabled = "setRotateGesturesEnabled"
+    private const val setTiltGesturesEnabled = "setTiltGesturesEnabled"
+    private const val setPointToCenter = "setPointToCenter"
+    private const val setGestureScaleByMapCenter = "setGestureScaleByMapCenter"
+
+    ///调用方法交互
+    private const val animateCamera = "animateCamera"
+    private const val moveCamera = "moveCamera"
+
+    ///地图截屏功能
+    private const val getMapScreenShot = "getMapScreenShot"
+
+    ///绘制点标记
     private const val addMarker = "addMarker"
+    private const val onMarkerClicked = "onMarkerClicked"
+    private const val onMarkerDragged = "onMarkerDragged"
+    private const val onMarkerDragStart = "onMarkerDragStart"
+    private const val onMarkerDragEnd = "onMarkerDragEnd"
+    private const val onInfoWindowClicked = "onInfoWindowClicked"
+
+    ///绘制几何图形
+    private const val addPolyline = "addPolyline"
+    private const val addCircle = "addCircle"
+    private const val addPolygon = "addPolygon"
+
     private const val getCenter = "getCenter"
 
 
     fun handleMessage(map: AMap, methodId: String, data: Any?, reply: BasicMessageChannel.Reply<String>) {
 
         when (methodId) {
-            MapMethods.getCenter -> MapMethods.getCenterPoint(map, reply)
-            MapMethods.addMarker -> {
+            getCenter -> getCenterPoint(map, reply)
+            addMarker -> {
                 if (data is JSONObject)
-                    MapMethods.addMarker(map, data, reply)
+                    addMarker(map, data, reply)
                 else
                     commonReply(methodId, false, "参数错误", reply)
             }
@@ -58,7 +91,7 @@ object MapMethods {
     private fun getCenterPoint(map: AMap, reply: BasicMessageChannel.Reply<String>) {
         val target = map.cameraPosition.target
         val data = mapOf(
-                "id" to MapMethods.getCenter,
+                "id" to getCenter,
                 "data" to mapOf(
                         "longitude" to target.longitude,
                         "latitude" to target.latitude
