@@ -1,7 +1,9 @@
 package com.jameskarl.amap.map
 
 import android.util.Log
+import com.amap.api.maps.AMap
 import com.amap.api.maps.TextureMapView
+import com.amap.api.maps.model.Marker
 import com.jameskarl.amap.AmapPlugin
 import com.jameskarl.amap.map.bean.toMarkerData
 import io.flutter.plugin.common.BasicMessageChannel
@@ -21,18 +23,51 @@ class MapMessageHandler(
 
     fun setup() {
         messageChannel.setMessageHandler(this)
-        mapView.map.setOnMarkerClickListener {
-            it.showInfoWindow()
-            sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMarkerClicked, it.toMarkerData()))
-            true
+
+        with(mapView.map) {
+            setOnMarkerClickListener {
+                it.showInfoWindow()
+                sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMarkerClicked, it.toMarkerData()))
+                true
+            }
+
+            setOnMapClickListener {
+                sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMapClicked, it))
+            }
+
+            setOnMapLoadedListener {
+                Log.d("MAP", "onMapLoaded")
+                sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMapLoaded))
+            }
+
+            setOnMarkerDragListener(object : AMap.OnMarkerDragListener {
+                override fun onMarkerDragEnd(marker: Marker?) {
+                    marker?.let {
+                        sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMarkerDragEnd, it.toMarkerData()))
+                    }
+                }
+
+                override fun onMarkerDragStart(marker: Marker?) {
+                    marker?.let {
+                        sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMarkerDragStart, it.toMarkerData()))
+                    }
+                }
+
+                override fun onMarkerDrag(marker: Marker?) {
+                    marker?.let {
+                        sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMarkerDragged, it.toMarkerData()))
+                    }
+                }
+
+            })
+
+            setOnInfoWindowClickListener { marker ->
+                marker?.let {
+                    sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onInfoWindowClicked, it.toMarkerData()))
+                }
+            }
         }
-        mapView.map.setOnMapClickListener {
-            sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMapClicked, it))
-        }
-        mapView.map.setOnMapLoadedListener {
-            Log.d("MAP", "onMapLoaded")
-            sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMapLoaded))
-        }
+
         Log.d("MAP", mapMethodChannelName)
     }
 

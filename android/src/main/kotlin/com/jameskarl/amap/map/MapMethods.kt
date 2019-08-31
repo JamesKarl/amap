@@ -36,10 +36,10 @@ object MapMethods {
     ///绘制点标记
     private const val addMarker = "addMarker"
     const val onMarkerClicked = "onMarkerClicked"
-    private const val onMarkerDragged = "onMarkerDragged"
-    private const val onMarkerDragStart = "onMarkerDragStart"
-    private const val onMarkerDragEnd = "onMarkerDragEnd"
-    private const val onInfoWindowClicked = "onInfoWindowClicked"
+    const val onMarkerDragged = "onMarkerDragged"
+    const val onMarkerDragStart = "onMarkerDragStart"
+    const val onMarkerDragEnd = "onMarkerDragEnd"
+    const val onInfoWindowClicked = "onInfoWindowClicked"
 
     ///绘制几何图形
     private const val addPolyline = "addPolyline"
