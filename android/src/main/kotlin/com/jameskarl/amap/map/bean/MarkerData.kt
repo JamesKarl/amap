@@ -5,7 +5,7 @@ import com.amap.api.maps.model.Marker
 import com.amap.api.maps.model.MarkerOptions
 import com.jameskarl.amap.map.IJsonEntity
 
-class LatLngData(var latitude: Double = 0.0, var longitude: Double = 0.0) {
+data class LatLngData(var latitude: Double = 0.0, var longitude: Double = 0.0) {
 
     constructor(position: LatLng) : this(position.latitude, position.longitude)
 

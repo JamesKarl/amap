@@ -47,7 +47,7 @@ abstract class MapMethods {
   static onMessage(MapEventListener listener, Map<String, dynamic> message) {
     final methodId = message["id"];
     final data = message['data'];
-    print("onMessage $methodId -> $data");
+    //print("onMessage $methodId -> $data");
     if (methodId == onMapClicked) {
       listener.onMapClicked(MapClickedEvent.fromJson(data));
     } else if (methodId == onMapLoaded) {

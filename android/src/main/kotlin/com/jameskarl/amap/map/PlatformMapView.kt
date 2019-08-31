@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import com.amap.api.maps.AMap
 import com.amap.api.maps.TextureMapView
+import com.jameskarl.amap.map.apis.DefaultInfoWindowAdapter
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
 
@@ -19,6 +20,7 @@ class PlatformMapView(context: Context, id: Int, private val registrar: PluginRe
     private var disposed = false
 
     init {
+        pluginRegistrar = registrar
         setup()
         messageHandler.setup()
     }
@@ -84,6 +86,8 @@ class PlatformMapView(context: Context, id: Int, private val registrar: PluginRe
             disposed || activity.hashCode() != registrarActivityHashCode
 
     companion object {
-        var infoWindowAdapter: AMap.InfoWindowAdapter? = null
+        var infoWindowAdapter: AMap.InfoWindowAdapter? = DefaultInfoWindowAdapter()
+        internal var pluginRegistrar: PluginRegistry.Registrar? = null
+        val activity: Activity? = pluginRegistrar?.activity()
     }
 }
