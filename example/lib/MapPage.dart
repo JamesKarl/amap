@@ -10,10 +10,12 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> implements MapEventListener {
   MapViewController mapViewController;
   bool mapLoaded = false;
+  DateTime initAtTime;
 
   @override
   void initState() {
     mapViewController = MapViewController(this);
+    initAtTime = DateTime.now();
     super.initState();
   }
 
@@ -29,7 +31,7 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
           MapView(controller: mapViewController),
           if (mapLoaded == false)
             Container(
-              color: Colors.purple,
+              color: Colors.white,
               child: Center(
                 child: CupertinoActivityIndicator(),
               ),
@@ -51,7 +53,6 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
 
   @override
   void onMapClicked(MapClickedEvent event) {
-    // TODO: implement onMapClicked
     print(event);
     mapViewController.addMarker(
       MapPoint(latitude: event.latitude, longitude: event.longitude),
@@ -61,7 +62,8 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
 
   @override
   void onMapLoaded() {
-    print("onMapLoaded okay");
+    print(
+        "load map consumed ${DateTime.now().millisecondsSinceEpoch - initAtTime.millisecondsSinceEpoch} ms");
     setState(() {
       mapLoaded = true;
     });
