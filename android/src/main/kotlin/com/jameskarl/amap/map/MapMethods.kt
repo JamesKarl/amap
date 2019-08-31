@@ -1,5 +1,6 @@
 package com.jameskarl.amap.map
 
+import android.util.Log
 import com.amap.api.maps.AMap
 import com.jameskarl.amap.map.apis.MapInfoApi
 import com.jameskarl.amap.map.apis.MarkerApi
@@ -52,6 +53,7 @@ object MapMethods {
     private val markerApi = MarkerApi()
 
     fun handleMessage(map: AMap, methodId: String, data: Any?, reply: BasicMessageChannel.Reply<String>) {
+        Log.d("MAP", "handleMessage $methodId -> $data")
         try {
             val replyMessage: ReplyToFlutter = when (methodId) {
                 setZoomControlsEnabled -> mapInfoApi.setZoomControlsEnabled(map, data)
@@ -83,6 +85,7 @@ object MapMethods {
     }
 
     fun handleException(methodId: String, message: String?, reply: BasicMessageChannel.Reply<String>) {
+        Log.d("MAP", "handleException $message -> $message")
         notifyFlutter(reply, ReplyToFlutter.Failed(methodId, message ?: "UNKNOWN EXCEPTION"))
     }
 

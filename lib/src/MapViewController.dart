@@ -36,7 +36,7 @@ class MapViewController extends NativeMessenger with MarkerMixin, MapInfoMixin {
   }
 
   Future<dynamic> _nativeMessageHandler(dynamic message) async {
-    print("_basicMessageChannel $message  ${message.runtimeType}");
+    print("message from native platform: $message  ${message.runtimeType}");
     try {
       MapMethods.onMessage(mapEventListener, jsonDecode(message));
     } catch (e) {
@@ -65,6 +65,7 @@ class MapViewController extends NativeMessenger with MarkerMixin, MapInfoMixin {
   MessageReply _handleReply(String methodId, dynamic response) {
     if (response is String) {
       try {
+        print("reply from native platform: $methodId -> $response");
         final Map<String, dynamic> json = jsonDecode(response);
         return MessageReply(
             methodId: json["id"],
