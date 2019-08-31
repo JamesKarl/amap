@@ -8,8 +8,7 @@ import 'bean/MapClickedEvent.dart';
 import 'mixin/marker.dart';
 
 abstract class NativeMessenger {
-  Future<MessageReply> sendMessageToNative(String methodId,
-      {Map<String, dynamic> data});
+  Future<MessageReply> sendMessageToNative(String methodId, {dynamic data});
 }
 
 class MapEventListener {
@@ -46,7 +45,7 @@ class MapViewController extends NativeMessenger with MarkerMixin {
 
   Future<MessageReply> sendMessageToNative(
     String methodId, {
-    Map<String, dynamic> data,
+    dynamic data,
   }) {
     return _basicMessageChannel
         .send(jsonEncode({"id": methodId, "data": data}))

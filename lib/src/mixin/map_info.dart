@@ -16,4 +16,8 @@ mixin MapInfo on NativeMessenger {
       }
     });
   }
+
+  Future<MessageReply> setZoomControlsEnabled(bool enable) {
+    return sendMessageToNative(MapMethods.setZoomControlsEnabled, data: enable);
+  }
 }
