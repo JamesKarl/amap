@@ -5,6 +5,10 @@ import com.amap.api.maps.model.Marker
 import com.amap.api.maps.model.MarkerOptions
 import com.jameskarl.amap.map.IJsonEntity
 
+class LatLngData(var latitude: Double = 0.0, var longitude: Double = 0.0) {
+    fun toLatLng() = LatLng(latitude, longitude, true)
+}
+
 data class MarkerData(val id: String, val data: String)
 
 fun Marker.toMarkerData(): MarkerData {
@@ -17,12 +21,12 @@ data class MarkerOptionData(
         var anchorV: Float? = null,
         var draggable: Boolean? = null,
         var icon: String? = null, //todo
-        var icons: List<String>? = null, //todo
+        //var icons: List<String>? = null, //todo
         var infoWindowOffsetX: Int? = null,
         var infoWindowOffsetY: Int? = null,
         var infoWindowEnable: Boolean? = null,
         var period: Int? = null,
-        var position: LatLng? = null,
+        var position: LatLngData? = null,
         var rotateAngle: Float? = null,
         var snippet: String? = null,
         var title: String? = null,
@@ -63,7 +67,7 @@ data class MarkerOptionData(
             }
 
             position?.let {
-                options.position(it)
+                options.position(it.toLatLng())
             }
 
             rotateAngle?.let {
