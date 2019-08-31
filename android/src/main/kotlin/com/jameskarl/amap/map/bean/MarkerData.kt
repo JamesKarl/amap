@@ -6,13 +6,28 @@ import com.amap.api.maps.model.MarkerOptions
 import com.jameskarl.amap.map.IJsonEntity
 
 class LatLngData(var latitude: Double = 0.0, var longitude: Double = 0.0) {
+
+    constructor(position: LatLng) : this(position.latitude, position.longitude)
+
     fun toLatLng() = LatLng(latitude, longitude, true)
 }
 
-data class MarkerData(val id: String, val data: String)
-
-fun Marker.toMarkerData(): MarkerData {
-    return MarkerData(data = this.title, id = this.id)
+fun Marker.toMarkerOptionData(): MarkerOptionData {
+    return MarkerOptionData().also {
+        it.alpha = alpha
+        it.anchorU = anchorU
+        it.anchorV = anchorV
+        it.draggable = isDraggable
+        it.infoWindowEnable = isInfoWindowEnable
+        it.period = period
+        it.position = LatLngData(position)
+        it.rotateAngle = rotateAngle
+        it.snippet = snippet
+        it.title = title
+        it.zIndex = zIndex
+        it.visible = isVisible
+        it.flat = isFlat
+    }
 }
 
 data class MarkerOptionData(

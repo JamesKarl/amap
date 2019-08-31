@@ -57,9 +57,9 @@ abstract class MapMethods {
     } else if (methodId == onInfoWindowClicked) {
       listener.onInfoWindowClicked(MarkerOptions.fromJson(data));
     } else if (methodId == onMarkerDragged) {
-      listener.onMarkerDragged(MarkerOptions.fromJson(data));
+      //listener.onMarkerDragged(MarkerOptions.fromJson(data));
     } else if (methodId == onMarkerDragStart) {
-      listener.onMarkerDragStart(MarkerOptions.fromJson(data));
+      //listener.onMarkerDragStart(MarkerOptions.fromJson(data));
     } else if (methodId == onMarkerDragEnd) {
       listener.onMarkerDragEnd(MarkerOptions.fromJson(data));
     } else {
