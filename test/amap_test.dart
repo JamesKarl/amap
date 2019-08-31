@@ -16,6 +16,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await Amap.platformVersion, '42');
+    expect(await AMap.platformVersion, '42');
   });
 }

@@ -27,12 +27,12 @@ class _MapViewState extends State<MapView> {
   Widget build(BuildContext context) {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       return UiKitView(
-        viewType: Amap.mapViewType,
+        viewType: AMap.mapViewType,
         onPlatformViewCreated: _initMessageChannel,
       );
     } else if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
-        viewType: Amap.mapViewType,
+        viewType: AMap.mapViewType,
         onPlatformViewCreated: _initMessageChannel,
       );
     } else {
@@ -44,7 +44,7 @@ class _MapViewState extends State<MapView> {
 
   void _initMessageChannel(int id) {
     _basicMessageChannel =
-        BasicMessageChannel("${Amap.mapViewType}/map$id", StringCodec());
+        BasicMessageChannel("${AMap.mapViewType}/map$id", StringCodec());
     print("message channel created with id: $id");
     widget.controller?.bindMessageChannel(_basicMessageChannel);
   }

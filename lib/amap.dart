@@ -9,7 +9,7 @@ export 'src/bean/MapClickedEvent.dart';
 export 'src/bean/MapData.dart';
 export 'src/bean/MarkerData.dart';
 
-class Amap {
+class AMap {
   static const mapViewType = "com.jameskarl/mapView";
   static const channelName = "com.jameskarl/map";
 
