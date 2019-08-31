@@ -49,6 +49,13 @@ abstract class MapMethods {
     final data = message['data'];
     if (methodId == onMapClicked) {
       listener.onMapClicked(MapClickedEvent.fromJson(data));
+    } else if (methodId == onMapLoaded) {
+      listener.onMapLoaded();
+    } else if (methodId == onMarkerClicked) {
+      listener.onMarkerClicked();
+    } else {
+      print(
+          "message from native platform not  consumed. methodId=$methodId data=$data ");
     }
   }
 }

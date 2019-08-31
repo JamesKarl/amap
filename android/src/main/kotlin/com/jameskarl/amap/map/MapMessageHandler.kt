@@ -31,6 +31,7 @@ class MapMessageHandler(
             sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMapClicked, it))
         }
         mapView.map.setOnMapLoadedListener {
+            Log.d("MAP", "onMapLoaded")
             sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMapLoaded))
         }
         Log.d("MAP", mapMethodChannelName)

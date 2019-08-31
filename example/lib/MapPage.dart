@@ -1,4 +1,5 @@
 import 'package:amap/amap.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MapPage extends StatefulWidget {
@@ -8,6 +9,7 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> implements MapEventListener {
   MapViewController mapViewController;
+  bool mapLoaded = false;
 
   @override
   void initState() {
@@ -22,7 +24,18 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
         title: Text("MAP"),
         centerTitle: true,
       ),
-      body: MapView(controller: mapViewController),
+      body: Stack(
+        children: <Widget>[
+          MapView(controller: mapViewController),
+          if (mapLoaded == false)
+            Container(
+              color: Colors.purple,
+              child: Center(
+                child: CupertinoActivityIndicator(),
+              ),
+            ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
@@ -48,7 +61,10 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
 
   @override
   void onMapLoaded() {
-    // TODO: implement onMapLoaded
+    print("onMapLoaded okay");
+    setState(() {
+      mapLoaded = true;
+    });
   }
 
   @override
