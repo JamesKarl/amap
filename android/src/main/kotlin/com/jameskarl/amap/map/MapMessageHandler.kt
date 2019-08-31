@@ -3,7 +3,6 @@ package com.jameskarl.amap.map
 import android.util.Log
 import com.amap.api.maps.TextureMapView
 import com.jameskarl.amap.AmapPlugin
-import com.jameskarl.amap.map.bean.ChannelMessageData
 import com.jameskarl.amap.map.bean.toMarkerData
 import com.jameskarl.shop.toJson
 import io.flutter.plugin.common.BasicMessageChannel
@@ -25,21 +24,20 @@ class MapMessageHandler(
         messageChannel.setMessageHandler(this)
         mapView.map.setOnMarkerClickListener {
             it.showInfoWindow()
-            sendJsonMessageToFlutter(ChannelMessageData(MapMethods.onMarkerClicked, it.toMarkerData()))
+            sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMarkerClicked, it.toMarkerData()))
             true
         }
         mapView.map.setOnMapClickListener {
-            sendJsonMessageToFlutter(ChannelMessageData(MapMethods.onMapClicked, it))
+            sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMapClicked, it))
         }
         mapView.map.setOnMapLoadedListener {
-            sendJsonMessageToFlutter(ChannelMessageData(MapMethods.onMapLoaded))
+            sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onMapLoaded))
         }
         Log.d("MAP", mapMethodChannelName)
     }
 
-    private fun sendJsonMessageToFlutter(message: ChannelMessageData) {
+    private fun sendJsonMessageToFlutter(message: ReplyToFlutter) {
         val msg = message.toJson()
-        Log.d("MAP", msg)
         messageChannel.send(msg)
     }
 
