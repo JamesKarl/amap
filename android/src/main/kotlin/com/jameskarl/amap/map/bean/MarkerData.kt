@@ -12,24 +12,25 @@ fun Marker.toMarkerData(): MarkerData {
 }
 
 data class MarkerOptionData(
-        var alpha: Float?,
-        var anchorU: Float?,
-        var anchorV: Float?,
-        var draggable: Boolean?,
-        var icon: String?, //todo
-        var icons: List<String>?, //todo
-        var infoWindowOffsetX: Int?,
-        var infoWindowOffsetY: Int?,
-        var infoWindowEnable: Boolean?,
-        var period: Int?,
-        var position: LatLng?,
-        var rotateAngle: Float?,
-        var snippet: String?,
-        var title: String?,
-        var zIndex: Float?,
-        var visible: Boolean?,
-        var flat: Boolean?,
-        var gps: Boolean?) : IJsonEntity {
+        var alpha: Float? = null,
+        var anchorU: Float? = null,
+        var anchorV: Float? = null,
+        var draggable: Boolean? = null,
+        var icon: String? = null, //todo
+        var icons: List<String>? = null, //todo
+        var infoWindowOffsetX: Int? = null,
+        var infoWindowOffsetY: Int? = null,
+        var infoWindowEnable: Boolean? = null,
+        var period: Int? = null,
+        var position: LatLng? = null,
+        var rotateAngle: Float? = null,
+        var snippet: String? = null,
+        var title: String? = null,
+        var zIndex: Float? = null,
+        var visible: Boolean? = null,
+        var flat: Boolean? = null,
+        var gps: Boolean? = null
+) : IJsonEntity {
 
     fun toMarkerOptions(): MarkerOptions {
         return MarkerOptions().also { options ->
