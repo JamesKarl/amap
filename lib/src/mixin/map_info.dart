@@ -74,7 +74,7 @@ mixin MapInfoMixin on NativeMessenger {
   }
 
   ///x、y均为屏幕坐标，屏幕左上角为坐标原点，即(0,0)点。
-  Future<MessageReply> setPointToCenter(double x, double y) {
+  Future<MessageReply> setPointToCenter(int x, int y) {
     return sendMessageToNative(MapMethods.setPointToCenter,
         data: {"x": x, "y": y});
   }

@@ -54,6 +54,20 @@ object MapMethods {
     fun handleMessage(map: AMap, methodId: String, data: Any?, reply: BasicMessageChannel.Reply<String>) {
         try {
             val replyMessage: ReplyToFlutter = when (methodId) {
+                setZoomControlsEnabled -> mapInfoApi.setZoomControlsEnabled(map, data)
+                setCompassEnabled -> mapInfoApi.setCompassEnabled(map, data)
+                setMyLocationButtonEnabled -> mapInfoApi.setMyLocationButtonEnabled(map, data)
+                setMyLocationEnabled -> mapInfoApi.setMyLocationEnabled(map, data)
+                setScaleControlsEnabled -> mapInfoApi.setScaleControlsEnabled(map, data)
+                setLogoPosition -> mapInfoApi.setLogoPosition(map, data)
+
+                setZoomGesturesEnabled -> mapInfoApi.setZoomGesturesEnabled(map, data)
+                setScrollGesturesEnabled -> mapInfoApi.setScrollGesturesEnabled(map, data)
+                setRotateGesturesEnabled -> mapInfoApi.setRotateGesturesEnabled(map, data)
+                setTiltGesturesEnabled -> mapInfoApi.setTiltGesturesEnabled(map, data)
+                setPointToCenter -> mapInfoApi.setPointToCenter(map, data)
+                setGestureScaleByMapCenter -> mapInfoApi.setGestureScaleByMapCenter(map, data)
+
                 getCenter -> mapInfoApi.getCenterPoint(map)
                 addMarker -> markerApi.addMarker(map, data)
 
