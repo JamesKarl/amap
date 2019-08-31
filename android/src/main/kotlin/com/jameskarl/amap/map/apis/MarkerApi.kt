@@ -1,6 +1,8 @@
 package com.jameskarl.amap.map.apis
 
+import android.graphics.BitmapFactory
 import com.amap.api.maps.AMap
+import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.jameskarl.amap.map.PlatformMapView
 import com.jameskarl.amap.map.ReplyToFlutter
 import com.jameskarl.amap.map.bean.MarkerOptionData
@@ -18,7 +20,15 @@ class MarkerApi {
                 PlatformMapView.infoWindowAdapter?.let {
                     map.setInfoWindowAdapter(it)
                 }
-                map.addMarker(markerOptionData.toMarkerOptions())
+
+                val markerOptions = markerOptionData.toMarkerOptions()
+                markerOptionData.icon?.let { icon ->
+                    PlatformMapView.getFlutterAsset(icon)?.let { fd ->
+                        val bitmap = BitmapFactory.decodeFileDescriptor(fd.fileDescriptor)
+                        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                    }
+                }
+                map.addMarker(markerOptions)
                 ReplyToFlutter.Success()
             }
         } catch (e: Throwable) {

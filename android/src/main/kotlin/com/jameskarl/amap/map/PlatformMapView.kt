@@ -3,11 +3,11 @@ package com.jameskarl.amap.map
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.content.res.AssetFileDescriptor
 import android.os.Bundle
 import android.view.View
 import com.amap.api.maps.AMap
 import com.amap.api.maps.TextureMapView
-import com.jameskarl.amap.map.apis.DefaultInfoWindowAdapter
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
 
@@ -89,5 +89,17 @@ class PlatformMapView(context: Context, id: Int, private val registrar: PluginRe
         var infoWindowAdapter: AMap.InfoWindowAdapter? = null
         internal var pluginRegistrar: PluginRegistry.Registrar? = null
         val activity: Activity? = pluginRegistrar?.activity()
+
+        internal fun getFlutterAsset(relativePath: String): AssetFileDescriptor? {
+            val registrar = pluginRegistrar ?: return null
+            val assetManager = registrar.context().assets
+            val key = registrar.lookupKeyForAsset(relativePath)
+            return try {
+                assetManager.openFd(key)
+            } catch (e: Throwable) {
+                e.printStackTrace()
+                null
+            }
+        }
     }
 }
