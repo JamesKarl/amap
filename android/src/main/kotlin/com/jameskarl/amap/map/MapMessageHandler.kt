@@ -53,12 +53,12 @@ class MapMessageHandler(
                     MapMethods.handleMessage(mapView.map, methodId, data, reply)
                 } else {
                     Log.e("MAP", "method id is absent.")
-                    MapMethods.commonReply(methodId?.toString()
-                            ?: "???", false, "method id is absent", reply)
+                    MapMethods.handleException(methodId?.toString()
+                            ?: "???", "method id is absent", reply)
                 }
             } catch (e: Throwable) {
                 e.printStackTrace()
-                MapMethods.commonReply("???", false, e.localizedMessage, reply)
+                MapMethods.handleException("???", e.localizedMessage, reply)
             }
         }
     }

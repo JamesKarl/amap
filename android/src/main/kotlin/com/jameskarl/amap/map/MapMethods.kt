@@ -1,11 +1,10 @@
 package com.jameskarl.amap.map
 
 import com.amap.api.maps.AMap
-import com.amap.api.maps.model.LatLng
-import com.amap.api.maps.model.MarkerOptions
+import com.jameskarl.amap.map.apis.MapInfoApi
+import com.jameskarl.amap.map.apis.MarkerApi
 import com.jameskarl.shop.toJson
 import io.flutter.plugin.common.BasicMessageChannel
-import org.json.JSONObject
 
 object MapMethods {
     const val onMapLoaded = "onMapLoaded"
@@ -36,7 +35,7 @@ object MapMethods {
 
     ///绘制点标记
     private const val addMarker = "addMarker"
-    private const val onMarkerClicked = "onMarkerClicked"
+    const val onMarkerClicked = "onMarkerClicked"
     private const val onMarkerDragged = "onMarkerDragged"
     private const val onMarkerDragStart = "onMarkerDragStart"
     private const val onMarkerDragEnd = "onMarkerDragEnd"
@@ -49,54 +48,35 @@ object MapMethods {
 
     private const val getCenter = "getCenter"
 
+    private val mapInfoApi = MapInfoApi()
+    private val markerApi = MarkerApi()
 
     fun handleMessage(map: AMap, methodId: String, data: Any?, reply: BasicMessageChannel.Reply<String>) {
-
-        when (methodId) {
-            getCenter -> getCenterPoint(map, reply)
-            addMarker -> {
-                if (data is JSONObject)
-                    addMarker(map, data, reply)
-                else
-                    commonReply(methodId, false, "参数错误", reply)
-            }
-        }
-    }
-
-    fun commonReply(methodId: String, success: Boolean, message: String?, reply: BasicMessageChannel.Reply<String>) {
-        val data = mapOf(
-                "id" to methodId,
-                "success" to success,
-                "message" to (message ?: "")
-        )
-        reply.reply(data.toJson())
-    }
-
-
-    private fun addMarker(map: AMap, data: JSONObject, reply: BasicMessageChannel.Reply<String>) {
         try {
-            val pos = data.getJSONObject("at")
-            val markerData = data.getJSONObject("marker")
-            val marker = MarkerOptions()
-                    .position(LatLng(pos.getDouble("latitude"), pos.getDouble("longitude")))
-                    .title(markerData.getString("title"))
-                    .snippet(markerData.getString("snippet"))
-            map.addMarker(marker)
-        } catch (e: Throwable) {
-            e.printStackTrace()
+            val replyMessage: ReplyToFlutter = when (methodId) {
+                getCenter -> mapInfoApi.getCenterPoint(map)
+                addMarker -> markerApi.addMarker(map, data)
+
+                else -> ReplyToFlutter.Failed(methodId, "NOT IMPLEMENTED")
+            }
+            replyMessage.id = methodId;
+            notifyFlutter(reply, replyMessage)
+        } catch (e: IllegalArgumentException) {
+            notifyFlutter(reply, ReplyToFlutter.Failed(methodId, e.message ?: "Invalid arguments"))
+        } catch (t: Throwable) {
+            notifyFlutter(reply, ReplyToFlutter.Failed(methodId, message = t.localizedMessage))
         }
     }
 
+    fun handleException(methodId: String, message: String?, reply: BasicMessageChannel.Reply<String>) {
+        notifyFlutter(reply, ReplyToFlutter.Failed(methodId, message ?: "UNKNOWN EXCEPTION"))
+    }
 
-    private fun getCenterPoint(map: AMap, reply: BasicMessageChannel.Reply<String>) {
-        val target = map.cameraPosition.target
-        val data = mapOf(
-                "id" to getCenter,
-                "data" to mapOf(
-                        "longitude" to target.longitude,
-                        "latitude" to target.latitude
-                )
-        )
-        reply.reply(data.toJson())
+    private fun notifyFlutter(reply: BasicMessageChannel.Reply<String>, message: ReplyToFlutter) {
+        try {
+            reply.reply(message.toJson())
+        } catch (e: Throwable) {
+            reply.reply(ReplyToFlutter.Failed(id = message.id, message = e.localizedMessage).toJson())
+        }
     }
 }
