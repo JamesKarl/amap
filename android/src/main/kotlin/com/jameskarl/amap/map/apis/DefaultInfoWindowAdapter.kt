@@ -9,7 +9,7 @@ import com.jameskarl.amap.map.PlatformMapView
 /**
  * https://lbs.amap.com/api/android-sdk/guide/draw-on-map/draw-marker
  */
-class DefaultInfoWindowAdapter : AMap.InfoWindowAdapter {
+internal class DefaultInfoWindowAdapter : AMap.InfoWindowAdapter {
     /**
      * 当实现此方法并返回有效值时（返回值不为空，则视为有效）,SDK 将不会使用默认的样式，
      * 而采用此方法返回的样式（即 View）。默认会将Marker 的 title 和 snippet 显示到 InfoWindow 中。

@@ -86,7 +86,7 @@ class PlatformMapView(context: Context, id: Int, private val registrar: PluginRe
             disposed || activity.hashCode() != registrarActivityHashCode
 
     companion object {
-        var infoWindowAdapter: AMap.InfoWindowAdapter? = DefaultInfoWindowAdapter()
+        var infoWindowAdapter: AMap.InfoWindowAdapter? = null
         internal var pluginRegistrar: PluginRegistry.Registrar? = null
         val activity: Activity? = pluginRegistrar?.activity()
     }
