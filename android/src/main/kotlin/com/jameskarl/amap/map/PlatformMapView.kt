@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import com.amap.api.maps.AMap
 import com.amap.api.maps.TextureMapView
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
@@ -82,4 +83,7 @@ class PlatformMapView(context: Context, id: Int, private val registrar: PluginRe
     private fun hasDisposed(activity: Activity) =
             disposed || activity.hashCode() != registrarActivityHashCode
 
+    companion object {
+        var infoWindowAdapter: AMap.InfoWindowAdapter? = null
+    }
 }
