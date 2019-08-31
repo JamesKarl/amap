@@ -1,16 +1,14 @@
 import 'package:amap/amap.dart';
+import 'package:amap/src/amap/model/model.dart';
 
 import '../MapMethods.dart';
 
 mixin MapInfoMixin on NativeMessenger {
   ///获取屏幕中心点经纬度
-  Future<MapPoint> getCenterPoint() async {
+  Future<LatLng> getCenterPoint() async {
     return sendMessageToNative(MapMethods.getCenter).then((reply) {
       if (reply.success && reply.data != null) {
-        return MapPoint(
-          longitude: reply.data["longitude"],
-          latitude: reply.data["latitude"],
-        );
+        return LatLng.fromJson(reply.data);
       } else {
         return null;
       }

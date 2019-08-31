@@ -38,6 +38,29 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
             ),
         ],
       ),
+      bottomNavigationBar: BottomAppBar(
+        child: SizedBox(
+          height: 48,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.zoom_in),
+                onPressed: () {
+                  mapViewController.setCompassEnabled(true);
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.zoom_out),
+                onPressed: () {
+                  mapViewController.setCompassEnabled(false);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
@@ -54,10 +77,11 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
   @override
   void onMapClicked(MapClickedEvent event) {
     print(event);
-    mapViewController.addMarker(
-      MapPoint(latitude: event.latitude, longitude: event.longitude),
-      MarkerData("23", title: "hello, world"),
-    );
+    final option = MarkerOptions();
+    option.position = LatLng(event.latitude, event.longitude);
+    option.title = "Hello, world";
+    option.snippet = "HaHA";
+    mapViewController.addMarker(option);
   }
 
   @override
