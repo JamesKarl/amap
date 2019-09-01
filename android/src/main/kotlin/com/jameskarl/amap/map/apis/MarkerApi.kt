@@ -93,7 +93,9 @@ class MarkerApi {
         val markerIconFactory = PlatformMapView.markerIconFactory
         if (markerOptionData.icon == null && activity != null && markerIconFactory != null) {
             markerIconFactory.createMarkerIcon(activity, markerOptionData)?.let { view ->
-                val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(view.drawToBitmap())
+                val bitmap = view.drawToBitmap()
+                Log.d("MAP", "create bitmap from view $bitmap")
+                val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bitmap)
                 markerOptions.icon(bitmapDescriptor)
             }
         }

@@ -24,7 +24,8 @@ class MarkerExtraData {
 }
 
 abstract class DummyData {
-  static MarkerOptions createMarker(double latitude, double longitude) {
+  static MarkerOptions createMarker(double latitude, double longitude,
+      {String icon = "assets/icons/ico_test.png"}) {
     MarkerOptions option = MarkerOptions();
     option.position = LatLng(latitude, longitude);
     option.title = "Hello, world";
@@ -33,13 +34,13 @@ abstract class DummyData {
     option..infoWindowEnable = true;
     option.draggable = true;
     option.flat = false;
-    option.icon = "assets/icons/ico_test.png";
+    option.icon = icon;
     option.extra = MarkerExtraData(id: 33, name: "James");
     return option;
   }
 
   static MarkerOptions createMarkerData(MapClickedEvent event) {
-    return createMarker(event.latitude, event.longitude);
+    return createMarker(event.latitude, event.longitude, icon: null);
   }
 
   static List<MarkerOptions> createMarkerListData(
@@ -47,10 +48,10 @@ abstract class DummyData {
     final items = [createMarkerData(event)];
     final random = Random();
     for (var i = 0; i < count; i++) {
-      items.add(
-        createMarker(event.latitude + random.nextDouble() * 0.001,
-            event.longitude + random.nextDouble() * 0.001),
-      );
+      final deltaX = random.nextDouble() * 0.001 * (random.nextBool() ? 1 : -1);
+      final deltaY = random.nextDouble() * 0.001 * (random.nextBool() ? 1 : -1);
+      items
+          .add(createMarker(event.latitude + deltaX, event.longitude + deltaY));
     }
     return items;
   }
