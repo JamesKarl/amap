@@ -42,8 +42,23 @@ class MarkerApi {
     fun addMarkers(map: AMap, data: Any?): ReplyToFlutter {
         require(data is JSONArray && data.length() > 0)
         return try {
-            for (i in 0..data.length()) {
-                addMarker(map, data[i])
+            setInfoWindowAdapter(map)
+            (0 until data.length()).mapNotNull {
+                val markerOptionData: MarkerOptionData? = data[it].toString().parseObject()
+                markerOptionData
+            }.map { markerOptionData ->
+                val markerOptions = markerOptionData.toMarkerOptions()
+                attachMarkerIcon(markerOptionData, markerOptions)
+                markerOptions to markerOptionData
+            }.let { markerOptionList ->
+                map.addMarkers(ArrayList(markerOptionList.map { it.first }), true).let { markerList ->
+                    markerList.zip(markerOptionList.map { it.second }).forEach {
+                        it.second.extra?.let { extra ->
+                            Log.d("MAP", "extra runtime type: ${extra::class.java.simpleName}")
+                            it.first.setObject(extra)
+                        }
+                    }
+                }
             }
             ReplyToFlutter.Success()
         } catch (e: Throwable) {

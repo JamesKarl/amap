@@ -157,7 +157,7 @@ class MarkerOptions {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['longitude'] = alpha;
+    data['alpha'] = alpha;
     data['anchorU'] = anchorU;
     data['anchorV'] = anchorV;
     data['draggable'] = draggable;

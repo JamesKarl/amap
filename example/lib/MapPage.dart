@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:amap/amap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -81,17 +79,8 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
   @override
   void onMapClicked(MapClickedEvent event) {
     print(event);
-    final option = MarkerOptions();
-    option.position = LatLng(event.latitude, event.longitude);
-    option.title = "Hello, world";
-    option.snippet = "HaHA";
-    option.rotateAngle = pi / 4;
-    option..infoWindowEnable = true;
-    option.draggable = true;
-    option.flat = false;
-    option.icon = "assets/icons/ico_test.png";
-    option.extra = MarkerExtraData(id: 33, name: "James");
-    mapViewController.addMarker(option);
+    //mapViewController.addMarker(DummyData.createMarkerData(event));
+    mapViewController.addMarkers(DummyData.createMarkerListData(event, 10));
   }
 
   @override
