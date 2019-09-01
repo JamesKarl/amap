@@ -25,7 +25,12 @@ class MarkerApi {
                 setInfoWindowAdapter(map)
                 val markerOptions = markerOptionData.toMarkerOptions()
                 attachMarkerIcon(markerOptionData, markerOptions)
-                map.addMarker(markerOptions)
+                map.addMarker(markerOptions).let { marker ->
+                    markerOptionData.extra?.let { extra ->
+                        Log.d("MAP", "extra runtime type: ${extra::class.java.simpleName}")
+                        marker.setObject(extra)
+                    }
+                }
                 ReplyToFlutter.Success()
             }
         } catch (e: Throwable) {

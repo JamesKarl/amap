@@ -4,6 +4,8 @@ import 'package:amap/amap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'marker_data.dart';
+
 class MapPage extends StatefulWidget {
   @override
   _MapPageState createState() => _MapPageState();
@@ -88,6 +90,7 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
     option.draggable = true;
     option.flat = false;
     option.icon = "assets/icons/ico_test.png";
+    option.extra = MarkerExtraData(id: 33, name: "James");
     mapViewController.addMarker(option);
   }
 

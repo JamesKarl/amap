@@ -27,6 +27,7 @@ fun Marker.toMarkerOptionData(): MarkerOptionData {
         it.zIndex = zIndex
         it.visible = isVisible
         it.flat = isFlat
+        it.extra = `object`
     }
 }
 
@@ -48,6 +49,7 @@ data class MarkerOptionData(
         var zIndex: Float? = null,
         var visible: Boolean? = null,
         var flat: Boolean? = null,
+        var extra: Any? = null,
         var gps: Boolean? = null
 ) : IJsonEntity {
 

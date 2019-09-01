@@ -109,6 +109,7 @@ class MarkerOptions {
   bool visible;
   bool flat;
   bool gps;
+  dynamic extra;
 
   MarkerOptions({
     this.alpha,
@@ -129,6 +130,7 @@ class MarkerOptions {
     this.visible,
     this.flat,
     this.gps,
+    this.extra,
   });
 
   MarkerOptions.fromJson(Map<String, dynamic> json) {
@@ -150,6 +152,7 @@ class MarkerOptions {
     this.visible = json['visible'];
     this.flat = json['flat'];
     this.gps = json['gps'];
+    this.extra = json['extra'];
   }
 
   Map<String, dynamic> toJson() {
@@ -172,6 +175,7 @@ class MarkerOptions {
     data['visible'] = visible;
     data['flat'] = flat;
     data['gps'] = gps;
+    data['extra'] = extra;
     return data;
   }
 }
