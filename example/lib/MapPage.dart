@@ -86,6 +86,13 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
           mapViewController.addCircle(
               DummyData.createCircle(m.position.latitude, m.position.longitude))
         });
+    final touchedCircle =
+        DummyData.createCircle(event.latitude, event.longitude);
+    touchedCircle
+      ..fillColor = null
+      ..radius = 30
+      ..strokeDottedLineType = MapConstants.DOTTED_LINE_TYPE_CIRCLE;
+    mapViewController.addCircle(touchedCircle);
   }
 
   @override

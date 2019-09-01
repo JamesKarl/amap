@@ -60,9 +60,10 @@ abstract class DummyData {
   static CircleOptions createCircle(double latitude, double longitude) {
     final options = CircleOptions();
     options
-      ..radius = 10.0
+      ..radius = 5.0
       ..fillColor = Colors.purple.value
       ..strokeColor = Colors.green.value
+      ..strokeDottedLineType = MapConstants.DOTTED_LINE_TYPE_DEFAULT
       ..center = LatLng(latitude, longitude);
     return options;
   }
