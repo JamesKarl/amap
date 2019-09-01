@@ -90,7 +90,8 @@ class PlatformMapView(context: Context, id: Int, private val registrar: PluginRe
         var markerIconFactory: MarkerIconFactory? = null
         var infoWindowAdapter: AMap.InfoWindowAdapter? = null
         internal var pluginRegistrar: PluginRegistry.Registrar? = null
-        val activity: Activity? = pluginRegistrar?.activity()
+
+        fun getActivity(): Activity? = pluginRegistrar?.activity()
 
         internal fun getFlutterAsset(relativePath: String): AssetFileDescriptor? {
             val registrar = pluginRegistrar ?: return null

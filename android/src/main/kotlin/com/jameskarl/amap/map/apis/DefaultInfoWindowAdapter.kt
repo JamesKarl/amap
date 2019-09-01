@@ -20,7 +20,7 @@ internal class DefaultInfoWindowAdapter : AMap.InfoWindowAdapter {
      * 注意：如果此方法返回的 View 没有设置 InfoWindow 背景图，SDK 会默认添加一个背景图。
      */
     override fun getInfoWindow(marker: Marker?): View? {
-        val activity = PlatformMapView.activity
+        val activity = PlatformMapView.getActivity()
         if (marker == null || activity == null) return null
         return TextView(activity).apply {
             text = "todo XXXX marker.title"
@@ -33,7 +33,7 @@ internal class DefaultInfoWindowAdapter : AMap.InfoWindowAdapter {
      * SDK 都会在最外层添加一个默认的边框。
      */
     override fun getInfoContents(marker: Marker?): View? {
-        val activity = PlatformMapView.activity
+        val activity = PlatformMapView.getActivity()
         if (marker == null || activity == null) return null
 
         return TextView(activity).apply {

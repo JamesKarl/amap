@@ -89,7 +89,7 @@ class MarkerApi {
             }
         }
 
-        val activity = PlatformMapView.activity
+        val activity = PlatformMapView.getActivity()
         val markerIconFactory = PlatformMapView.markerIconFactory
         if (markerOptionData.icon == null && activity != null && markerIconFactory != null) {
             markerIconFactory.createMarkerIcon(activity, markerOptionData)?.let { view ->
