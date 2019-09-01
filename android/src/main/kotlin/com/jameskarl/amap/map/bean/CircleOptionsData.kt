@@ -6,7 +6,7 @@ import com.amap.api.maps.model.PolylineOptions
 import com.jameskarl.amap.map.IJsonEntity
 
 class CircleOptionsData(
-        var paramArrayOfOptions: List<CircleHoleOptionsData>? = null,
+        var holeOptions: List<CircleHoleOptionsData>? = null,
         var center: LatLngData? = null,
         var fillColor: Int? = null,
         var radius: Double? = null,
@@ -19,7 +19,7 @@ class CircleOptionsData(
 
     fun toCircleOptions(): CircleOptions {
         return CircleOptions().also { option ->
-            paramArrayOfOptions?.let { option.addHoles(it.map { hole -> hole.toBaseHoleOptions() }) }
+            holeOptions?.let { option.addHoles(it.map { hole -> hole.toBaseHoleOptions() }) }
             center?.let { option.center(it.toLatLng()) }
             fillColor?.let { option.fillColor(it) }
             radius?.let { option.radius(it) }

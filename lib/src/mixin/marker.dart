@@ -1,3 +1,4 @@
+import 'package:amap/src/amap/model/circle_options.dart';
 import 'package:amap/src/amap/model/model.dart';
 
 import '../../amap.dart';
@@ -12,5 +13,10 @@ mixin MarkerMixin on NativeMessenger {
   ///添加多个Marker
   Future<MessageReply> addMarkers(List<MarkerOptions> markers) {
     return sendMessageToNative(MapMethods.addMarkers, data: markers);
+  }
+
+  ///添加圆
+  Future<MessageReply> addCircle(CircleOptions circleOptions) {
+    return sendMessageToNative(MapMethods.addCircle, data: circleOptions);
   }
 }
