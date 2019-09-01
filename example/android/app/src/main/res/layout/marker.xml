@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="0dp"
+    android:background="@drawable/marker_round_rectangle_bg"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_weight="1"
-        android:src="@android:drawable/presence_online" />
+    android:paddingLeft="12dp"
+    android:paddingTop="4dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="4dp">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:textColor="#FFFFFF"
+        tools:text="曹羊路32公里" />
 </LinearLayout>
