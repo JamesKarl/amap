@@ -8,4 +8,9 @@ mixin MarkerMixin on NativeMessenger {
   Future<MessageReply> addMarker(MarkerOptions marker) {
     return sendMessageToNative(MapMethods.addMarker, data: marker);
   }
+
+  ///添加多个Marker
+  Future<MessageReply> addMarkers(List<MarkerOptions> markers) {
+    return sendMessageToNative(MapMethods.addMarkers, data: markers);
+  }
 }

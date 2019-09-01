@@ -11,6 +11,7 @@ import com.jameskarl.amap.map.PlatformMapView
 import com.jameskarl.amap.map.ReplyToFlutter
 import com.jameskarl.amap.map.bean.MarkerOptionData
 import com.jameskarl.amap.map.parseObject
+import org.json.JSONArray
 import org.json.JSONObject
 
 class MarkerApi {
@@ -33,6 +34,18 @@ class MarkerApi {
                 }
                 ReplyToFlutter.Success()
             }
+        } catch (e: Throwable) {
+            ReplyToFlutter.Failed(message = e.localizedMessage)
+        }
+    }
+
+    fun addMarkers(map: AMap, data: Any?): ReplyToFlutter {
+        require(data is JSONArray && data.length() > 0)
+        return try {
+            for (i in 0..data.length()) {
+                addMarker(map, data[i])
+            }
+            ReplyToFlutter.Success()
         } catch (e: Throwable) {
             ReplyToFlutter.Failed(message = e.localizedMessage)
         }

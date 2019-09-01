@@ -31,6 +31,7 @@ abstract class MapMethods {
 
   ///绘制点标记
   static const addMarker = "addMarker";
+  static const addMarkers = "addMarkers";
   static const onMarkerClicked = "onMarkerClicked";
   static const onMarkerDragged = "onMarkerDragged";
   static const onMarkerDragStart = "onMarkerDragStart";

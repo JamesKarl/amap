@@ -35,6 +35,7 @@ object MapMethods {
 
     ///绘制点标记
     private const val addMarker = "addMarker"
+    private const val addMarkers = "addMarkers"
     const val onMarkerClicked = "onMarkerClicked"
     const val onMarkerDragged = "onMarkerDragged"
     const val onMarkerDragStart = "onMarkerDragStart"
@@ -71,6 +72,7 @@ object MapMethods {
 
                 getCenter -> mapInfoApi.getCenterPoint(map)
                 addMarker -> markerApi.addMarker(map, data)
+                addMarkers -> markerApi.addMarkers(map, data)
 
                 else -> ReplyToFlutter.Failed(methodId, "NOT IMPLEMENTED")
             }
