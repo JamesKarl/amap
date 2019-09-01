@@ -3,6 +3,7 @@ package com.jameskarl.amap.map.apis
 import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.collection.LruCache
+import androidx.core.view.drawToBitmap
 import com.amap.api.maps.AMap
 import com.amap.api.maps.model.BitmapDescriptor
 import com.amap.api.maps.model.BitmapDescriptorFactory
@@ -85,6 +86,15 @@ class MarkerApi {
                     Log.d("MAP", "create new marker icon identified by $icon")
                     markerOptions.icon(bitmapDescriptor)
                 }
+            }
+        }
+
+        val activity = PlatformMapView.activity
+        val markerIconFactory = PlatformMapView.markerIconFactory
+        if (markerOptionData.icon == null && activity != null && markerIconFactory != null) {
+            markerIconFactory.createMarkerIcon(activity, markerOptionData)?.let { view ->
+                val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(view.drawToBitmap())
+                markerOptions.icon(bitmapDescriptor)
             }
         }
     }

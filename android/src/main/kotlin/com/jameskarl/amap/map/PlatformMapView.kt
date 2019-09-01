@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import com.amap.api.maps.AMap
 import com.amap.api.maps.TextureMapView
+import com.jameskarl.amap.map.apis.MarkerIconFactory
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
 
@@ -86,6 +87,7 @@ class PlatformMapView(context: Context, id: Int, private val registrar: PluginRe
             disposed || activity.hashCode() != registrarActivityHashCode
 
     companion object {
+        var markerIconFactory: MarkerIconFactory? = null
         var infoWindowAdapter: AMap.InfoWindowAdapter? = null
         internal var pluginRegistrar: PluginRegistry.Registrar? = null
         val activity: Activity? = pluginRegistrar?.activity()

@@ -48,8 +48,8 @@ abstract class DummyData {
     final random = Random();
     for (var i = 0; i < count; i++) {
       items.add(
-        createMarker(event.latitude + random.nextDouble() * 0.0001,
-            event.longitude + random.nextDouble() * 0.0001),
+        createMarker(event.latitude + random.nextDouble() * 0.001,
+            event.longitude + random.nextDouble() * 0.001),
       );
     }
     return items;
