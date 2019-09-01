@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 export 'src/MapView.dart';
 export 'src/MapViewController.dart';
 export 'src/MessageReply.dart';
+export 'src/amap/model/circle_options.dart';
 export 'src/amap/model/model.dart';
 export 'src/bean/MapClickedEvent.dart';
 

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:amap/amap.dart';
+import 'package:flutter/material.dart';
 
 class MarkerExtraData {
   int id;
@@ -54,5 +55,15 @@ abstract class DummyData {
           .add(createMarker(event.latitude + deltaX, event.longitude + deltaY));
     }
     return items;
+  }
+
+  static CircleOptions createCircle(double latitude, double longitude) {
+    final options = CircleOptions();
+    options
+      ..radius = 30.0
+      ..fillColor = Colors.purple.value
+      ..strokeColor = Colors.green.value
+      ..center = LatLng(latitude, longitude);
+    return options;
   }
 }

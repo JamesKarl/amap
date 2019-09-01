@@ -80,7 +80,12 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
   void onMapClicked(MapClickedEvent event) {
     print(event);
     //mapViewController.addMarker(DummyData.createMarkerData(event));
-    mapViewController.addMarkers(DummyData.createMarkerListData(event, 10));
+    final markers = DummyData.createMarkerListData(event, 10);
+    mapViewController.addMarkers(markers);
+    markers.forEach((m) => {
+          mapViewController.addCircle(
+              DummyData.createCircle(m.position.latitude, m.position.longitude))
+        });
   }
 
   @override
