@@ -60,7 +60,7 @@ abstract class DummyData {
   static CircleOptions createCircle(double latitude, double longitude) {
     final options = CircleOptions();
     options
-      ..radius = 30.0
+      ..radius = 10.0
       ..fillColor = Colors.purple.value
       ..strokeColor = Colors.green.value
       ..center = LatLng(latitude, longitude);

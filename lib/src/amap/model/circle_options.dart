@@ -13,7 +13,7 @@ class CircleOptions {
   bool visible;
 
   CircleOptions({
-    this.holeOptions,
+    this.holeOptions = const [],
     this.center,
     this.fillColor,
     this.radius,

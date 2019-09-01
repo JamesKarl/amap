@@ -8,10 +8,10 @@ import com.jameskarl.amap.map.IJsonEntity
 class CircleOptionsData(
         var holeOptions: List<CircleHoleOptionsData>? = null,
         var center: LatLngData? = null,
-        var fillColor: Int? = null,
+        var fillColor: Long? = null,
         var radius: Double? = null,
-        var strokeColor: Int? = null,
-        var strokeDottedLineType: Int? = null,
+        var strokeColor: Long? = null,
+        var strokeDottedLineType: Long? = null,
         var strokeWidth: Float? = null,
         var zIndex: Float? = null,
         var visible: Boolean? = null
@@ -21,10 +21,10 @@ class CircleOptionsData(
         return CircleOptions().also { option ->
             holeOptions?.let { option.addHoles(it.map { hole -> hole.toBaseHoleOptions() }) }
             center?.let { option.center(it.toLatLng()) }
-            fillColor?.let { option.fillColor(it) }
+            fillColor?.let { option.fillColor(it.toInt()) }
             radius?.let { option.radius(it) }
-            strokeColor?.let { option.strokeColor(it) }
-            strokeDottedLineType?.let { option.setStrokeDottedLineType(it) }
+            strokeColor?.let { option.strokeColor(it.toInt()) }
+            strokeDottedLineType?.let { option.setStrokeDottedLineType(it.toInt()) }
             strokeWidth?.let { option.strokeWidth(it) }
             zIndex?.let { option.zIndex(it) }
             visible?.let { option.visible(it) }

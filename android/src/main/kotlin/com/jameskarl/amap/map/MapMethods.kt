@@ -85,7 +85,9 @@ object MapMethods {
         } catch (e: IllegalArgumentException) {
             notifyFlutter(reply, ReplyToFlutter.Failed(methodId, e.message ?: "Invalid arguments"))
         } catch (t: Throwable) {
-            notifyFlutter(reply, ReplyToFlutter.Failed(methodId, message = t.localizedMessage))
+            t.printStackTrace()
+            notifyFlutter(reply, ReplyToFlutter.Failed(methodId, message = t.localizedMessage
+                    ?: "UNKNOWN ERROR"))
         }
     }
 
