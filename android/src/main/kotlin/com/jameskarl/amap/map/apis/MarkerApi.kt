@@ -13,6 +13,7 @@ import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.MarkerOptions
 import com.jameskarl.amap.map.PlatformMapView
 import com.jameskarl.amap.map.ReplyToFlutter
+import com.jameskarl.amap.map.bean.CircleOptionsData
 import com.jameskarl.amap.map.bean.MarkerOptionData
 import com.jameskarl.amap.map.parseObject
 import org.json.JSONArray
@@ -20,6 +21,26 @@ import org.json.JSONObject
 
 class MarkerApi {
     private val cache: LruCache<String, BitmapDescriptor> = LruCache(20)
+
+    fun addCircle(map: AMap, data: Any?): ReplyToFlutter {
+        require(data is JSONObject)
+        val options: CircleOptionsData? = data.toString().parseObject()
+        if (options != null) {
+            map.addCircle(options.toCircleOptions())
+            return ReplyToFlutter.Success()
+        } else {
+            throw IllegalAccessException()
+        }
+    }
+
+    fun addPolyline(map: AMap, data: Any?): ReplyToFlutter {
+        return ReplyToFlutter.Failed(message = "TODO")
+    }
+
+    fun addPolygon(map: AMap, data: Any?): ReplyToFlutter {
+        return ReplyToFlutter.Failed(message = "TODO")
+    }
+
     fun addMarker(map: AMap, data: Any?): ReplyToFlutter {
         require(data is JSONObject)
         return try {

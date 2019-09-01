@@ -74,6 +74,10 @@ object MapMethods {
                 addMarker -> markerApi.addMarker(map, data)
                 addMarkers -> markerApi.addMarkers(map, data)
 
+                addCircle -> markerApi.addCircle(map, data)
+                addPolyline -> markerApi.addPolyline(map, data)
+                addPolygon -> markerApi.addPolygon(map, data)
+
                 else -> ReplyToFlutter.Failed(methodId, "NOT IMPLEMENTED")
             }
             replyMessage.id = methodId;
