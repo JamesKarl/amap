@@ -1,9 +1,12 @@
 package com.jameskarl.amap.map.apis
 
+import android.app.ActionBar
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.util.Log
+import android.view.View
 import androidx.collection.LruCache
-import androidx.core.view.drawToBitmap
 import com.amap.api.maps.AMap
 import com.amap.api.maps.model.BitmapDescriptor
 import com.amap.api.maps.model.BitmapDescriptorFactory
@@ -93,11 +96,22 @@ class MarkerApi {
         val markerIconFactory = PlatformMapView.markerIconFactory
         if (markerOptionData.icon == null && activity != null && markerIconFactory != null) {
             markerIconFactory.createMarkerIcon(activity, markerOptionData)?.let { view ->
-                val bitmap = view.drawToBitmap()
+                val bitmap = convertViewToBitmap(view)
                 Log.d("MAP", "create bitmap from view $bitmap")
                 val bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bitmap)
                 markerOptions.icon(bitmapDescriptor)
             }
         }
+    }
+
+    private fun convertViewToBitmap(view: View): Bitmap {
+        view.measure(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT)
+        val width = view.measuredWidth
+        val height = view.measuredHeight
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.layout(0, 0, width, height)
+        view.draw(canvas)
+        return bitmap
     }
 }
