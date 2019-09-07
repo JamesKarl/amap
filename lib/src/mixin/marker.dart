@@ -1,7 +1,3 @@
-import 'package:amap/src/amap/model/circle_options.dart';
-import 'package:amap/src/amap/model/model.dart';
-import 'package:amap/src/amap/model/polyline_options.dart';
-
 import '../../amap.dart';
 import '../MapMethods.dart';
 

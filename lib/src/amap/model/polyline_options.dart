@@ -1,4 +1,4 @@
-import 'package:amap/amap.dart';
+import 'common.dart';
 
 class PolylineOptions {
   List<LatLng> points;

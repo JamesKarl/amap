@@ -1,4 +1,4 @@
-import 'model/model.dart';
+import 'model/common.dart';
 
 ///地图状态发生变化的监听接口。
 ///当调用AMap.animateCamera(CameraUpdate)、AMap.moveCamera(CameraUpdate)及手势操作地图时会触发该回调。

@@ -1,5 +1,4 @@
 import 'package:amap/amap.dart';
-import 'package:amap/src/amap/model/model.dart';
 
 import '../MapMethods.dart';
 
