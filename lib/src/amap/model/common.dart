@@ -21,7 +21,7 @@ class CameraPosition {
 
   CameraPosition.fromJson(Map<String, dynamic> json) {
     this.bearing = json['bearing'];
-    this.target = json['target'];
+    this.target = LatLng.fromJson(json['target']);
     this.tilt = json['tilt'];
     this.zoom = json['zoom'];
   }
