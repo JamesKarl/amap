@@ -110,3 +110,5 @@ class LatLngBounds {
     return 'LatLngBounds{northeast: $northeast, southwest: $southwest}';
   }
 }
+
+enum LogoPosition { BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT }

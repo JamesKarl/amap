@@ -73,5 +73,3 @@ mixin MapInfoMixin on NativeMessenger {
     return sendMessageToNative('setGestureScaleByMapCenter', data: enable);
   }
 }
-
-enum LogoPosition { BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT }

@@ -109,6 +109,8 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
 
   @override
   void onMapLoaded() {
+    mapViewController.newLatLngZoom(LatLng(30.506097, 114.379612), 15);
+    mapViewController.setLogoPosition(LogoPosition.BOTTOM_CENTER);
     print(
         "load map consumed ${DateTime.now().millisecondsSinceEpoch - initAtTime.millisecondsSinceEpoch} ms");
     setState(() {
