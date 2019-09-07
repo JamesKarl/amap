@@ -80,12 +80,21 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
   void onMapClicked(MapClickedEvent event) {
     print(event);
     //mapViewController.addMarker(DummyData.createMarkerData(event));
-    final markers = DummyData.createMarkerListData(event, 10);
+    final points = DummyData.createPoints(event.latitude, event.longitude, 10);
+
+    //add center marker
+    mapViewController.addMarker(MarkerOptions(title: "You clicked here"));
+    //add markers
+    final markers = DummyData.createMarkerListData(points);
     mapViewController.addMarkers(markers);
-    markers.forEach((m) => {
-          mapViewController.addCircle(
-              DummyData.createCircle(m.position.latitude, m.position.longitude))
-        });
+
+    //add circle
+    points.forEach((p) {
+      mapViewController
+          .addCircle(DummyData.createCircle(p.latitude, p.longitude));
+    });
+
+    //add center circle
     final touchedCircle =
         DummyData.createCircle(event.latitude, event.longitude);
     touchedCircle
@@ -94,8 +103,7 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
       ..strokeDottedLineType = MapConstants.DOTTED_LINE_TYPE_CIRCLE;
     mapViewController.addCircle(touchedCircle);
 
-    final polyline =
-        DummyData.createPolyline(event.latitude, event.longitude, 5);
+    final polyline = DummyData.createPolyline(points);
     mapViewController.addPolyline(polyline);
   }
 

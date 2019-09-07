@@ -44,17 +44,8 @@ abstract class DummyData {
     return createMarker(event.latitude, event.longitude, icon: null);
   }
 
-  static List<MarkerOptions> createMarkerListData(
-      MapClickedEvent event, int count) {
-    final items = [createMarkerData(event)];
-    final random = Random();
-    for (var i = 0; i < count; i++) {
-      final deltaX = random.nextDouble() * 0.001 * (random.nextBool() ? 1 : -1);
-      final deltaY = random.nextDouble() * 0.001 * (random.nextBool() ? 1 : -1);
-      items
-          .add(createMarker(event.latitude + deltaX, event.longitude + deltaY));
-    }
-    return items;
+  static List<MarkerOptions> createMarkerListData(List<LatLng> points) {
+    return points.map((p) => createMarker(p.latitude, p.longitude)).toList();
   }
 
   static CircleOptions createCircle(double latitude, double longitude) {
@@ -68,21 +59,26 @@ abstract class DummyData {
     return options;
   }
 
-  static PolylineOptions createPolyline(
+  static PolylineOptions createPolyline(List<LatLng> points) {
+    return PolylineOptions(
+      points: points,
+      color: Colors.green.value,
+      width: 15,
+      dottedLine: false,
+      lineCapType: LineCapType.LineCapArrow,
+      lineJoinType: LineJoinType.LineJoinRound,
+    );
+  }
+
+  static List<LatLng> createPoints(
       double latitude, double longitude, int count) {
-    final points = [LatLng(latitude, longitude)];
+    final points = <LatLng>[];
     final random = Random();
     for (var i = 0; i < count; i++) {
       final deltaX = random.nextDouble() * 0.001 * (random.nextBool() ? 1 : -1);
       final deltaY = random.nextDouble() * 0.001 * (random.nextBool() ? 1 : -1);
       points.add(LatLng(latitude + deltaX, longitude + deltaY));
     }
-    return PolylineOptions(
-      points: points,
-      color: Colors.green.value,
-      width: 5,
-      dottedLine: true,
-      lineCapType: LineCapType.LineCapArrow,
-    );
+    return points;
   }
 }
