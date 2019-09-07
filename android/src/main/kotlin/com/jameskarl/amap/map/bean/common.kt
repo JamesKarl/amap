@@ -1,0 +1,61 @@
+package com.jameskarl.amap.map.bean
+
+import android.graphics.Point
+import com.amap.api.maps.model.CameraPosition
+import com.amap.api.maps.model.LatLng
+import com.amap.api.maps.model.LatLngBounds
+import com.jameskarl.amap.map.IJsonEntity
+
+data class LatLngData(var latitude: Double = 0.0, var longitude: Double = 0.0) : IJsonEntity {
+
+    constructor(position: LatLng) : this(position.latitude, position.longitude)
+
+    fun toLatLng() = LatLng(latitude, longitude, true)
+
+    override fun toString(): String {
+        return "LatLngData(latitude=$latitude, longitude=$longitude)"
+    }
+}
+
+data class ScreenPoint(var x: Int = 0, var y: Int = 0) : IJsonEntity {
+
+    fun toPoint() = Point(x, y)
+
+    override fun toString(): String {
+        return "ScreenPoint(x=$x, y=$y)"
+    }
+}
+
+data class LatLngBoundsData(
+        var northeast: LatLngData = LatLngData(),
+        var southwest: LatLngData = LatLngData()
+) : IJsonEntity {
+    fun toLatLngBounds(): LatLngBounds {
+        return LatLngBounds(northeast.toLatLng(), southwest.toLatLng())
+    }
+
+    override fun toString(): String {
+        return "LatLngBoundsData(northeast=$northeast, southwest=$southwest)"
+    }
+}
+
+data class CameraPositionData(
+        var bearing: Double? = null,
+        var target: LatLngData? = null,
+        var tilt: Double? = null,
+        var zoom: Double? = null
+) : IJsonEntity {
+
+    fun toCameraPosition(): CameraPosition {
+        val builder = CameraPosition.Builder()
+        bearing?.let { builder.bearing(it.toFloat()) }
+        target?.let { builder.target(it.toLatLng()) }
+        tilt?.let { builder.tilt(it.toFloat()) }
+        zoom?.let { builder.zoom(it.toFloat()) }
+        return builder.build()
+    }
+
+    override fun toString(): String {
+        return "CameraPositionData(bearing=$bearing, target=$target, tilt=$tilt, zoom=$zoom)"
+    }
+}

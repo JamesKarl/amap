@@ -1,20 +1,8 @@
 package com.jameskarl.amap.map.bean
 
-import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.Marker
 import com.amap.api.maps.model.MarkerOptions
 import com.jameskarl.amap.map.IJsonEntity
-
-data class LatLngData(var latitude: Double = 0.0, var longitude: Double = 0.0) : IJsonEntity {
-
-    constructor(position: LatLng) : this(position.latitude, position.longitude)
-
-    fun toLatLng() = LatLng(latitude, longitude, true)
-
-    override fun toString(): String {
-        return "LatLngData(latitude=$latitude, longitude=$longitude)"
-    }
-}
 
 fun Marker.toMarkerOptionData(): MarkerOptionData {
     return MarkerOptionData().also {
