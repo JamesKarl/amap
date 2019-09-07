@@ -93,6 +93,10 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
       ..radius = 30
       ..strokeDottedLineType = MapConstants.DOTTED_LINE_TYPE_CIRCLE;
     mapViewController.addCircle(touchedCircle);
+
+    final polyline =
+        DummyData.createPolyline(event.latitude, event.longitude, 5);
+    mapViewController.addPolyline(polyline);
   }
 
   @override

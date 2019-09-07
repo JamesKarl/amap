@@ -67,4 +67,16 @@ abstract class DummyData {
       ..center = LatLng(latitude, longitude);
     return options;
   }
+
+  static PolylineOptions createPolyline(
+      double latitude, double longitude, int count) {
+    final points = [LatLng(latitude, longitude)];
+    final random = Random();
+    for (var i = 0; i < count; i++) {
+      final deltaX = random.nextDouble() * 0.001 * (random.nextBool() ? 1 : -1);
+      final deltaY = random.nextDouble() * 0.001 * (random.nextBool() ? 1 : -1);
+      points.add(LatLng(latitude + deltaX, longitude + deltaY));
+    }
+    return PolylineOptions(points: points);
+  }
 }

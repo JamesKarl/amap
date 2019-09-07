@@ -8,6 +8,7 @@ export 'src/MessageReply.dart';
 export 'src/amap/map_constants.dart';
 export 'src/amap/model/circle_options.dart';
 export 'src/amap/model/model.dart';
+export 'src/amap/model/polyline_options.dart';
 export 'src/bean/MapClickedEvent.dart';
 
 class AMap {

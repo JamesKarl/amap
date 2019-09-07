@@ -54,7 +54,12 @@ class PolylineOptions {
     };
   }
 
-  factory PolylineOptions.fromMap(Map<String, dynamic> map) {
+  @override
+  String toString() {
+    return 'PolylineOptions{points: $points, color: $color, colorValues: $colorValues, geodesic: $geodesic, dottedLine: $dottedLine, useGradient: $useGradient, visible: $visible, lineCapType: $lineCapType, lineJoinType: $lineJoinType, dottedLineType: $dottedLineType, rangeBegin: $rangeBegin, rangeEnd: $rangeEnd, transparency: $transparency, width: $width, zIndex: $zIndex}';
+  }
+
+  factory PolylineOptions.fromJson(Map<String, dynamic> map) {
     return new PolylineOptions(
       points: map['points'] as List<LatLng>,
       color: map['color'] as int,
