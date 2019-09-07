@@ -66,7 +66,7 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          mapViewController.getCenterPoint().then((point) {
+          mapViewController.getCenter().then((point) {
             if (point != null) {
               print("xxx $point");
             }
