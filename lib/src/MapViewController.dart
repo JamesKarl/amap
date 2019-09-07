@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amap/src/mixin/camera.dart';
 import 'package:amap/src/mixin/map_info.dart';
 import 'package:flutter/services.dart';
 
@@ -31,7 +32,8 @@ class MapEventListener extends MarkerEventListener {
   void onMapLoaded() {}
 }
 
-class MapViewController extends NativeMessenger with MarkerMixin, MapInfoMixin {
+class MapViewController extends NativeMessenger
+    with MarkerMixin, MapInfoMixin, CameraMixin {
   final MapEventListener mapEventListener;
   BasicMessageChannel _basicMessageChannel;
 
