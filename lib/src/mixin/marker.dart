@@ -1,5 +1,6 @@
 import 'package:amap/src/amap/model/circle_options.dart';
 import 'package:amap/src/amap/model/model.dart';
+import 'package:amap/src/amap/model/polyline_options.dart';
 
 import '../../amap.dart';
 import '../MapMethods.dart';
@@ -18,5 +19,10 @@ mixin MarkerMixin on NativeMessenger {
   ///添加圆
   Future<MessageReply> addCircle(CircleOptions circleOptions) {
     return sendMessageToNative(MapMethods.addCircle, data: circleOptions);
+  }
+
+  ///添加折线
+  Future<MessageReply> addPolyline(PolylineOptions polylineOptions) {
+    return sendMessageToNative(MapMethods.addPolyline, data: polylineOptions);
   }
 }
