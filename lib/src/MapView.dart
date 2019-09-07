@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:amap/src/amap/map_creation_params.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,8 +10,13 @@ import 'MapViewController.dart';
 
 class MapView extends StatefulWidget {
   final MapViewController controller;
+  final MapCreationParams creationParams;
 
-  const MapView({Key key, this.controller}) : super(key: key);
+  const MapView({
+    Key key,
+    this.controller,
+    this.creationParams,
+  }) : super(key: key);
 
   @override
   _MapViewState createState() => _MapViewState();
@@ -29,11 +37,15 @@ class _MapViewState extends State<MapView> {
       return UiKitView(
         viewType: AMap.mapViewType,
         onPlatformViewCreated: _initMessageChannel,
+        creationParams: jsonEncode(widget.creationParams ?? {}),
+        creationParamsCodec: StringCodec(),
       );
     } else if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
         viewType: AMap.mapViewType,
         onPlatformViewCreated: _initMessageChannel,
+        creationParams: jsonEncode(widget.creationParams ?? {}),
+        creationParamsCodec: StringCodec(),
       );
     } else {
       return Text(
