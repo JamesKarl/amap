@@ -18,6 +18,9 @@ object MapMethods {
     const val onMarkerDragEnd = "onMarkerDragEnd"
     const val onInfoWindowClicked = "onInfoWindowClicked"
 
+    const val onCameraChange = "onCameraChange"
+    const val onCameraChangeFinish = "onCameraChangeFinish"
+
     private val flutterApis: List<FlutterApi> = listOf(MarkerApi(), MapInfoApi(), CameraApi())
 
     fun handleMessage(map: AMap, methodId: String, data: Any?, reply: BasicMessageChannel.Reply<String>) {

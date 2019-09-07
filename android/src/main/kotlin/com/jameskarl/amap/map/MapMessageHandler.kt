@@ -3,8 +3,10 @@ package com.jameskarl.amap.map
 import android.util.Log
 import com.amap.api.maps.AMap
 import com.amap.api.maps.TextureMapView
+import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.model.Marker
 import com.jameskarl.amap.AmapPlugin
+import com.jameskarl.amap.map.bean.CameraPositionData
 import com.jameskarl.amap.map.bean.toMarkerOptionData
 import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.PluginRegistry
@@ -66,6 +68,21 @@ class MapMessageHandler(
                     sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onInfoWindowClicked, it.toMarkerOptionData()))
                 }
             }
+
+            setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
+                override fun onCameraChangeFinish(cameraPosition: CameraPosition?) {
+                    cameraPosition?.let { position ->
+                        sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onCameraChangeFinish, CameraPositionData(position)))
+                    }
+                }
+
+                override fun onCameraChange(cameraPosition: CameraPosition?) {
+                    cameraPosition?.let { position ->
+                        sendJsonMessageToFlutter(ReplyToFlutter.Success(MapMethods.onCameraChange, CameraPositionData(position)))
+                    }
+                }
+
+            })
         }
 
         Log.d("MAP", mapMethodChannelName)

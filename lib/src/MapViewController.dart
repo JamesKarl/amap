@@ -14,7 +14,7 @@ abstract class NativeMessenger {
   Future<MessageReply> sendMessageToNative(String methodId, {dynamic data});
 }
 
-class MarkerEventListener {
+abstract class MarkerEventListener {
   void onMarkerClicked(MarkerOptions marker) {}
 
   void onMarkerDragged(MarkerOptions marker) {}
@@ -26,7 +26,14 @@ class MarkerEventListener {
   void onInfoWindowClicked(MarkerOptions marker) {}
 }
 
-class MapEventListener extends MarkerEventListener {
+abstract class MapCameraChangeListener {
+  void onCameraChange(CameraPosition cameraPosition) {}
+
+  void onCameraChangeFinish(CameraPosition cameraPosition) {}
+}
+
+abstract class MapEventListener extends MarkerEventListener
+    implements MapCameraChangeListener {
   void onMapClicked(MapClickedEvent event) {}
 
   void onMapLoaded() {}

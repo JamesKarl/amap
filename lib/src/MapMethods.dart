@@ -13,6 +13,9 @@ abstract class MapMethods {
   static const onMarkerDragEnd = "onMarkerDragEnd";
   static const onInfoWindowClicked = "onInfoWindowClicked";
 
+  static const onCameraChange = "onCameraChange";
+  static const onCameraChangeFinish = "onCameraChangeFinish";
+
   static onMessage(MapEventListener listener, Map<String, dynamic> message) {
     final methodId = message["id"];
     final data = message['data'];
@@ -31,6 +34,10 @@ abstract class MapMethods {
       //listener.onMarkerDragStart(MarkerOptions.fromJson(data));
     } else if (methodId == onMarkerDragEnd) {
       listener.onMarkerDragEnd(MarkerOptions.fromJson(data));
+    } else if (methodId == onCameraChange) {
+      listener.onCameraChange(CameraPosition.fromJson(data));
+    } else if (methodId == onCameraChangeFinish) {
+      listener.onCameraChange(CameraPosition.fromJson(data));
     } else {
       print(
           "message from native platform not  consumed. methodId=$methodId data=$data ");

@@ -142,4 +142,15 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
   void onMarkerDragged(MarkerOptions marker) {
     // TODO: implement onMarkerDragged
   }
+
+  @override
+  void onCameraChange(CameraPosition cameraPosition) {
+    // TODO: implement onCameraChange
+  }
+
+  @override
+  void onCameraChangeFinish(CameraPosition cameraPosition) {
+    // TODO: implement onCameraChangeFinish
+    print("onCameraChangeFinish: $cameraPosition");
+  }
 }

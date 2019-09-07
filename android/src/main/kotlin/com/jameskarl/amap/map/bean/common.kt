@@ -46,6 +46,13 @@ data class CameraPositionData(
         var zoom: Double? = null
 ) : IJsonEntity {
 
+    constructor(cameraPosition: CameraPosition) : this(
+            bearing = cameraPosition.bearing.toDouble(),
+            target = LatLngData(cameraPosition.target),
+            tilt = cameraPosition.tilt.toDouble(),
+            zoom = cameraPosition.zoom.toDouble()
+    )
+
     fun toCameraPosition(): CameraPosition {
         val builder = CameraPosition.Builder()
         bearing?.let { builder.bearing(it.toFloat()) }
