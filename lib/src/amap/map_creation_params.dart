@@ -5,13 +5,13 @@ class MapCreationParams {
 
   MapCreationParams({this.cameraPosition});
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'cameraPosition': this.cameraPosition,
     };
   }
 
-  factory MapCreationParams.fromMap(Map<String, dynamic> map) {
+  factory MapCreationParams.fromJson(Map<String, dynamic> map) {
     return new MapCreationParams(
       cameraPosition: map['cameraPosition'] as CameraPosition,
     );

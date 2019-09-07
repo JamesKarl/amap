@@ -38,14 +38,14 @@ class _MapViewState extends State<MapView> {
         viewType: AMap.mapViewType,
         onPlatformViewCreated: _initMessageChannel,
         creationParams: jsonEncode(widget.creationParams ?? {}),
-        creationParamsCodec: StringCodec(),
+        creationParamsCodec: StandardMessageCodec(),
       );
     } else if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
         viewType: AMap.mapViewType,
         onPlatformViewCreated: _initMessageChannel,
         creationParams: jsonEncode(widget.creationParams ?? {}),
-        creationParamsCodec: StringCodec(),
+        creationParamsCodec: StandardMessageCodec(),
       );
     } else {
       return Text(

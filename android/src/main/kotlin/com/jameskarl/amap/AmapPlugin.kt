@@ -1,7 +1,10 @@
 package com.jameskarl.amap
 
 import android.content.Context
+import android.util.Log
 import com.jameskarl.amap.map.PlatformMapView
+import com.jameskarl.amap.map.bean.MapCreationParams
+import com.jameskarl.amap.map.parseObject
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -37,7 +40,20 @@ class AmapPlugin : MethodCallHandler {
 private class MapViewFactory(val registrar: Registrar) : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
 
     override fun create(context: Context?, id: Int, params: Any?): PlatformView {
-        print("MapViewFactory params: $params")
-        return PlatformMapView(context!!, id, registrar)
+        return PlatformMapView(context!!, id, registrar, parseCreationParams(params))
+    }
+
+    private fun parseCreationParams(params: Any?): MapCreationParams? {
+        var createParams: MapCreationParams? = null
+
+        if (params is String) {
+            createParams = params.parseObject()
+        }
+
+        if (params != null && createParams == null) {
+            Log.d("MAP", "MapViewFactory params: ${params.javaClass.simpleName} $params")
+        }
+
+        return createParams
     }
 }

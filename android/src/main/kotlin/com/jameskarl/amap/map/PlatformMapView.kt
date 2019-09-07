@@ -7,12 +7,19 @@ import android.content.res.AssetFileDescriptor
 import android.os.Bundle
 import android.view.View
 import com.amap.api.maps.AMap
+import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.TextureMapView
 import com.jameskarl.amap.map.apis.MarkerIconFactory
+import com.jameskarl.amap.map.bean.MapCreationParams
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
 
-class PlatformMapView(context: Context, id: Int, private val registrar: PluginRegistry.Registrar) : PlatformView, Application.ActivityLifecycleCallbacks {
+class PlatformMapView(
+        context: Context,
+        id: Int,
+        private val registrar: PluginRegistry.Registrar,
+        private val creationParams: MapCreationParams? = null
+) : PlatformView, Application.ActivityLifecycleCallbacks {
 
     private val mapView: TextureMapView = TextureMapView(context)
     private val messageHandler: MapMessageHandler = MapMessageHandler(registrar, mapView, id)
@@ -43,6 +50,17 @@ class PlatformMapView(context: Context, id: Int, private val registrar: PluginRe
     private fun setup() {
         mapView.onCreate(null)
         registrar.activity().application.registerActivityLifecycleCallbacks(this)
+        initWithCreationParams()
+    }
+
+    private fun initWithCreationParams() {
+        val params = creationParams
+        if (params != null) {
+            val cameraPosition = params.cameraPosition
+            if (cameraPosition != null) {
+                mapView.map.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition.toCameraPosition()))
+            }
+        }
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
