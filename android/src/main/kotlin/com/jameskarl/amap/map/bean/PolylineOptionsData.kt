@@ -5,8 +5,8 @@ import com.jameskarl.amap.map.IJsonEntity
 
 class PolylineOptionsData(
         var points: List<LatLngData>? = null,
-        var color: Int? = null,
-        var colorValues: List<Int>? = null,
+        var color: Long? = null,
+        var colorValues: List<Long>? = null,
         var geodesic: Boolean? = null,
         var dottedLine: Boolean? = null,
         var useGradient: Boolean? = null,
@@ -23,8 +23,8 @@ class PolylineOptionsData(
     fun toPolylineOptionsData(): PolylineOptions {
         return PolylineOptions().also { option ->
             points?.let { option.addAll(it.map { point -> point.toLatLng() }) }
-            color?.let { option.color(it) }
-            colorValues?.let { option.colorValues(it) }
+            color?.let { option.color(it.toInt()) }
+            colorValues?.let { option.colorValues(it.map { c -> c.toInt() }) }
             geodesic?.let { option.geodesic(it) }
             dottedLineType?.let { option.setDottedLineType(it) }
             transparency?.let { option.transparency(it) }

@@ -77,6 +77,12 @@ abstract class DummyData {
       final deltaY = random.nextDouble() * 0.001 * (random.nextBool() ? 1 : -1);
       points.add(LatLng(latitude + deltaX, longitude + deltaY));
     }
-    return PolylineOptions(points: points);
+    return PolylineOptions(
+      points: points,
+      color: Colors.green.value,
+      width: 5,
+      dottedLine: true,
+      lineCapType: LineCapType.LineCapArrow,
+    );
   }
 }

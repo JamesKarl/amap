@@ -2,7 +2,7 @@ import 'package:amap/amap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'marker_data.dart';
+import 'dummy_data.dart';
 
 class MapPage extends StatefulWidget {
   @override
