@@ -49,6 +49,8 @@ object MapMethods {
 
     private const val getCenter = "getCenter"
 
+    private const val clear = "clear"
+
     private val mapInfoApi = MapInfoApi()
     private val markerApi = MarkerApi()
 
@@ -77,6 +79,7 @@ object MapMethods {
                 addCircle -> markerApi.addCircle(map, data)
                 addPolyline -> markerApi.addPolyline(map, data)
                 addPolygon -> markerApi.addPolygon(map, data)
+                clear -> markerApi.clear(map, data);
 
                 else -> ReplyToFlutter.Failed(methodId, "NOT IMPLEMENTED")
             }

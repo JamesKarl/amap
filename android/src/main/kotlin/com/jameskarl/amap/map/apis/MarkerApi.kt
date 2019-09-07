@@ -39,7 +39,7 @@ class MarkerApi {
         val options: PolylineOptionsData? = data.toString().parseObject()
         if (options != null) {
             map.addPolyline(options.toPolylineOptionsData())
-            return ReplyToFlutter.Success();
+            return ReplyToFlutter.Success()
         } else {
             throw IllegalArgumentException()
         }
@@ -47,6 +47,11 @@ class MarkerApi {
 
     fun addPolygon(map: AMap, data: Any?): ReplyToFlutter {
         return ReplyToFlutter.Failed(message = "TODO")
+    }
+
+    fun clear(map: AMap, data: Any?): ReplyToFlutter {
+        map.clear()
+        return ReplyToFlutter.Success()
     }
 
     fun addMarker(map: AMap, data: Any?): ReplyToFlutter {

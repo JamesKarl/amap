@@ -25,4 +25,9 @@ mixin MarkerMixin on NativeMessenger {
   Future<MessageReply> addPolyline(PolylineOptions polylineOptions) {
     return sendMessageToNative(MapMethods.addPolyline, data: polylineOptions);
   }
+
+  ///从地图上删除所有的overlay（marker，circle，polyline 等对象）。
+  Future<MessageReply> clear() {
+    return sendMessageToNative(MapMethods.clear);
+  }
 }

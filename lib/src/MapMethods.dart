@@ -45,6 +45,8 @@ abstract class MapMethods {
 
   static const getCenter = "getCenter";
 
+  static const clear = "clear";
+
   static onMessage(MapEventListener listener, Map<String, dynamic> message) {
     final methodId = message["id"];
     final data = message['data'];
