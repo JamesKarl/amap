@@ -32,8 +32,8 @@ abstract class MapCameraChangeListener {
   void onCameraChangeFinish(CameraPosition cameraPosition) {}
 }
 
-abstract class MapEventListener extends MarkerEventListener
-    implements MapCameraChangeListener {
+abstract class MapEventListener
+    implements MapCameraChangeListener, MarkerEventListener {
   void onMapClicked(MapClickedEvent event) {}
 
   void onMapLoaded() {}
