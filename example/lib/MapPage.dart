@@ -13,9 +13,16 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
   MapViewController mapViewController;
   bool mapLoaded = false;
   DateTime initAtTime;
+  MapCreationParams creationParams;
 
   @override
   void initState() {
+    creationParams = MapCreationParams(
+      cameraPosition: CameraPosition(
+        target: LatLng(30.506097, 114.379612),
+        zoom: 15,
+      ),
+    );
     mapViewController = MapViewController(this);
     initAtTime = DateTime.now();
     super.initState();
@@ -30,7 +37,10 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
       ),
       body: Stack(
         children: <Widget>[
-          MapView(controller: mapViewController),
+          MapView(
+            controller: mapViewController,
+            creationParams: creationParams,
+          ),
           if (mapLoaded == false)
             Container(
               color: Colors.white,

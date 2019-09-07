@@ -37,6 +37,7 @@ class AmapPlugin : MethodCallHandler {
 private class MapViewFactory(val registrar: Registrar) : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
 
     override fun create(context: Context?, id: Int, params: Any?): PlatformView {
+        print("MapViewFactory params: $params")
         return PlatformMapView(context!!, id, registrar)
     }
 }
