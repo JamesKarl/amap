@@ -50,13 +50,13 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
               IconButton(
                 icon: Icon(Icons.zoom_in),
                 onPressed: () {
-                  mapViewController.setCompassEnabled(true);
+                  mapViewController.zoomIn();
                 },
               ),
               IconButton(
                 icon: Icon(Icons.zoom_out),
                 onPressed: () {
-                  mapViewController.setCompassEnabled(false);
+                  mapViewController.zoomOut();
                 },
               ),
             ],
