@@ -2,7 +2,6 @@ package com.jameskarl.amap.map.bean
 
 import com.amap.api.maps.model.CircleHoleOptions
 import com.amap.api.maps.model.CircleOptions
-import com.amap.api.maps.model.PolylineOptions
 import com.jameskarl.amap.map.IJsonEntity
 
 class CircleOptionsData(
@@ -40,36 +39,6 @@ class CircleHoleOptionsData(
         return CircleHoleOptions().also { option ->
             center?.let { option.center(it.toLatLng()) }
             radius?.let { option.radius(it) }
-        }
-    }
-}
-
-class PolylinOptionsData(
-        var points: List<LatLngData>? = null,
-        var color: Int? = null,
-        var colorValues: List<Int>? = null,
-        var geodesic: Boolean? = null,
-        var dottedLineType: Int? = null,
-        var transparency: Float? = null,
-        var width: Float? = null,
-        var zIndex: Float? = null,
-        var visible: Boolean? = null,
-        var lineCapType: PolylineOptions.LineCapType? = null,
-        var lineJoinType: PolylineOptions.LineJoinType? = null
-) : IJsonEntity {
-    fun toPolylineOptionsData(): PolylineOptions {
-        return PolylineOptions().also { option ->
-            points?.let { option.addAll(it.map { point -> point.toLatLng() }) }
-            color?.let { option.color(it) }
-            colorValues?.let { option.colorValues(it) }
-            geodesic?.let { option.geodesic(it) }
-            dottedLineType?.let { option.setDottedLineType(it) }
-            transparency?.let { option.transparency(it) }
-            width?.let { option.width(it) }
-            zIndex?.let { option.zIndex(it) }
-            visible?.let { option.visible(it) }
-            lineCapType?.let { option.lineCapType(it) }
-            lineJoinType?.let { option.lineJoinType(it) }
         }
     }
 }

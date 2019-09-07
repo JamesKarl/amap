@@ -15,6 +15,7 @@ import com.jameskarl.amap.map.PlatformMapView
 import com.jameskarl.amap.map.ReplyToFlutter
 import com.jameskarl.amap.map.bean.CircleOptionsData
 import com.jameskarl.amap.map.bean.MarkerOptionData
+import com.jameskarl.amap.map.bean.PolylineOptionsData
 import com.jameskarl.amap.map.parseObject
 import org.json.JSONArray
 import org.json.JSONObject
@@ -34,7 +35,14 @@ class MarkerApi {
     }
 
     fun addPolyline(map: AMap, data: Any?): ReplyToFlutter {
-        return ReplyToFlutter.Failed(message = "TODO")
+        require(data is JSONObject)
+        val options: PolylineOptionsData? = data.toString().parseObject()
+        if (options != null) {
+            map.addPolyline(options.toPolylineOptionsData())
+            return ReplyToFlutter.Success();
+        } else {
+            throw IllegalArgumentException()
+        }
     }
 
     fun addPolygon(map: AMap, data: Any?): ReplyToFlutter {
