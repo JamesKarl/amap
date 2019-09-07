@@ -47,6 +47,31 @@ class CameraPosition {
   }
 }
 
+class ScreenPoint {
+  int x, y;
+
+  ScreenPoint({this.x, this.y});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'x': this.x,
+      'y': this.y,
+    };
+  }
+
+  factory ScreenPoint.fromJson(Map<String, dynamic> map) {
+    return new ScreenPoint(
+      x: map['x'] as int,
+      y: map['y'] as int,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'ScreenPoint{x: $x, y: $y}';
+  }
+}
+
 class LatLng {
   double latitude, longitude;
 
