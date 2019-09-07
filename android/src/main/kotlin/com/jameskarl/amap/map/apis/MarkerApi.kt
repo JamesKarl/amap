@@ -20,10 +20,22 @@ import com.jameskarl.amap.map.parseObject
 import org.json.JSONArray
 import org.json.JSONObject
 
-class MarkerApi {
+class MarkerApi : FlutterApi {
     private val cache: LruCache<String, BitmapDescriptor> = LruCache(20)
 
-    fun addCircle(map: AMap, data: Any?): ReplyToFlutter {
+    override fun handle(methodId: String, map: AMap, data: Any?): ReplyToFlutter? {
+        return when (methodId) {
+            "addMarker" -> addMarker(map, data)
+            "addMarkers" -> addMarkers(map, data)
+            "addCircle" -> addCircle(map, data)
+            "addPolyline" -> addPolyline(map, data)
+            "addPolygon" -> addPolygon(data)
+            "clear" -> clear(map)
+            else -> null
+        }
+    }
+
+    private fun addCircle(map: AMap, data: Any?): ReplyToFlutter {
         require(data is JSONObject)
         val options: CircleOptionsData? = data.toString().parseObject()
         if (options != null) {
@@ -34,7 +46,7 @@ class MarkerApi {
         }
     }
 
-    fun addPolyline(map: AMap, data: Any?): ReplyToFlutter {
+    private fun addPolyline(map: AMap, data: Any?): ReplyToFlutter {
         require(data is JSONObject)
         val options: PolylineOptionsData? = data.toString().parseObject()
         if (options != null) {
@@ -45,16 +57,16 @@ class MarkerApi {
         }
     }
 
-    fun addPolygon(map: AMap, data: Any?): ReplyToFlutter {
+    private fun addPolygon(data: Any?): ReplyToFlutter {
         return ReplyToFlutter.Failed(message = "TODO")
     }
 
-    fun clear(map: AMap, data: Any?): ReplyToFlutter {
+    private fun clear(map: AMap): ReplyToFlutter {
         map.clear()
         return ReplyToFlutter.Success()
     }
 
-    fun addMarker(map: AMap, data: Any?): ReplyToFlutter {
+    private fun addMarker(map: AMap, data: Any?): ReplyToFlutter {
         require(data is JSONObject)
         return try {
             val markerOptionData: MarkerOptionData? = data.toString().parseObject()
@@ -77,7 +89,7 @@ class MarkerApi {
         }
     }
 
-    fun addMarkers(map: AMap, data: Any?): ReplyToFlutter {
+    private fun addMarkers(map: AMap, data: Any?): ReplyToFlutter {
         require(data is JSONArray && data.length() > 0)
         return try {
             setInfoWindowAdapter(map)
