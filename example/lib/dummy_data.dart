@@ -63,7 +63,7 @@ abstract class DummyData {
     return PolylineOptions(
       points: points,
       color: Colors.green.value,
-      width: 15,
+      width: 8,
       dottedLine: false,
       lineCapType: LineCapType.LineCapArrow,
       lineJoinType: LineJoinType.LineJoinRound,

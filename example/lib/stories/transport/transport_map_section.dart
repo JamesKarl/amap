@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:amap/amap.dart';
+import 'package:amap_example/dummy_data.dart';
 import 'package:amap_example/repository/transport/bean/RegionItemBean.dart';
 import 'package:amap_example/stories/transport/transport_model.dart';
 import 'package:flutter/material.dart';
@@ -90,16 +91,26 @@ class _TransportMapSectionState extends State<TransportMapSection>
   }
 
   void onRegionUpdated(RegionBean region) async {
+    final regionCenter = LatLng(region.lat, region.lng);
     await mapViewController.clear();
-    await mapViewController.newLatLngZoom(LatLng(region.lat, region.lng), 11);
+    await mapViewController.newLatLngZoom(regionCenter, 11);
     await mapViewController.addCircle(
       CircleOptions(
-        center: LatLng(region.lat, region.lng),
+        center: regionCenter,
         radius: 2000,
         fillColor: Color(0xffF8E0D0).value,
         strokeColor: Color(0xfffa8c16).value,
         strokeWidth: 8,
       ),
     );
+    await mapViewController
+        .addMarkers(DummyData.createMarkerListData(region.getAllPoints()));
+    region.flowList?.forEach((flow) async {
+      final points =
+      flow.flowStationList.map((p) => LatLng(p.lat, p.lng)).toList();
+      points.insert(0, regionCenter);
+      final polyline = DummyData.createPolyline(points);
+      await mapViewController.addPolyline(polyline);
+    });
   }
 }
