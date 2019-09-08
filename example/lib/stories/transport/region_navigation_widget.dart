@@ -1,5 +1,8 @@
 import 'package:amap_example/repository/transport/bean/RegionItemBean.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'transport_model.dart';
 
 class RegionNavigationWidget extends StatefulWidget {
   final List<RegionBean> regions;
@@ -13,9 +16,6 @@ class RegionNavigationWidget extends StatefulWidget {
 
 class _RegionNavigationWidgetState extends State<RegionNavigationWidget> {
   List<RegionBean> get regions => widget.regions;
-
-  RegionBean currentRegion;
-  FlowBean currentFlow;
 
   static const _style1 = TextStyle(
     fontSize: 15,
@@ -36,85 +36,117 @@ class _RegionNavigationWidgetState extends State<RegionNavigationWidget> {
   );
 
   @override
-  void initState() {
-    currentRegion = regions.first;
-    currentFlow = currentRegion?.flowList?.first;
-    super.initState();
+  Widget build(BuildContext context) {
+    return Consumer<TransportModel>(
+      builder: (BuildContext context, TransportModel model, Widget child) {
+        return ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: 240),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: buildLeftSection(model),
+              ),
+              Expanded(
+                flex: 3,
+                child: buildRightSection(model),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 240),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: ListView(
-              shrinkWrap: true,
-              children: regions.map((region) {
-                return Container(
-                  height: 30,
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  color: region == currentRegion
-                      ? Colors.white
-                      : Colors.transparent,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "${region.name} (${region.flowCount})",
-                      style: _style1,
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
+  Widget buildRightSection(TransportModel model) {
+    return ListView(
+      shrinkWrap: true,
+      children: <Widget>[
+        buildRightSectionHeader(model),
+        if (model.currentRegion?.flowList?.isNotEmpty == true)
+          for (var flow in model.currentRegion?.flowList)
+            buildRightListItem(flow, model),
+      ],
+    );
+  }
+
+  InkWell buildRightListItem(FlowBean flow, TransportModel model) {
+    return InkWell(
+      child: Container(
+        height: 32,
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        color: Colors.white,
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "${flow.name} - ${flow.flowStationList.join(" - ")}",
+            style: flow == model.currentFlow ? _style4 : _style3,
           ),
-          Expanded(
-            flex: 3,
-            child: ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                Container(
-                  color: Colors.white,
-                  height: 30,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 8),
-                        Text(
-                          "共${currentRegion.coalpitCount}个煤矿、${currentRegion.flowCount}条线路",
-                          style: _style2,
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.keyboard_arrow_right,
-                          color: Color(0xff999999),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                for (var flow in currentRegion.flowList)
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    color: Colors.white,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "${flow.name} - ${flow.flowStationList.join(" - ")}",
-                        style: flow == currentFlow ? _style4 : _style1,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
+      onTap: () {
+        setState(() {
+          model.currentFlow = flow;
+        });
+      },
+    );
+  }
+
+  Widget buildRightSectionHeader(TransportModel model) {
+    return Container(
+      color: Colors.white,
+      height: 40,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Row(
+          children: <Widget>[
+            SizedBox(width: 8),
+            Text(
+              "共${model.currentRegion?.coalpitCount ?? "--"}个煤矿、${model.currentRegion?.flowCount ?? '--'}条线路",
+              style: _style2,
+            ),
+            Spacer(),
+            Icon(
+              Icons.keyboard_arrow_right,
+              color: Color(0xff999999),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildLeftSection(TransportModel model) {
+    return ListView(
+      shrinkWrap: true,
+      children: regions.map((region) {
+        return buildLeftListItem(region, model);
+      }).toList(),
+    );
+  }
+
+  InkWell buildLeftListItem(RegionBean region, TransportModel model) {
+    return InkWell(
+      child: Container(
+        height: 40,
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        color:
+            region == model.currentRegion ? Colors.white : Colors.transparent,
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "${region.name} (${region.flowCount})",
+            style: _style1,
+          ),
+        ),
+      ),
+      onTap: () {
+        setState(() {
+          model.currentRegion = region;
+        });
+      },
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:amap_example/stories/transport/transport_bottom_section.dart';
 import 'package:amap_example/stories/transport/transport_introduction_section.dart';
 import 'package:amap_example/stories/transport/transport_map_section.dart';
+import 'package:amap_example/stories/transport/transport_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TransportMainPage extends StatefulWidget {
   @override
@@ -11,28 +13,32 @@ class TransportMainPage extends StatefulWidget {
 class _TransportMainPageState extends State<TransportMainPage>
     with SingleTickerProviderStateMixin {
   TabController tabController;
-
+  TransportModel model;
   final tabs = ["代办派车", "业务介绍"];
 
   @override
   void initState() {
+    model = TransportModel();
     tabController = TabController(vsync: this, length: tabs.length);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(),
-      bottomNavigationBar: buildBottomAppBar(),
-      body: TabBarView(
-        controller: tabController,
-        children: <Widget>[
-          TransportMapSection(),
-          TransportIntroductionSection(),
-        ],
+    return ChangeNotifierProvider.value(
+      value: model,
+      child: Scaffold(
+        appBar: buildAppBar(),
+        bottomNavigationBar: buildBottomAppBar(),
+        body: TabBarView(
+          controller: tabController,
+          children: <Widget>[
+            TransportMapSection(),
+            TransportIntroductionSection(),
+          ],
+        ),
+        bottomSheet: TransportBottomSection(),
       ),
-      bottomSheet: TransportBottomSection(),
     );
   }
 
