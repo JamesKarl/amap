@@ -39,6 +39,7 @@ class _RegionNavigationWidgetState extends State<RegionNavigationWidget> {
   Widget build(BuildContext context) {
     return Consumer<TransportModel>(
       builder: (BuildContext context, TransportModel model, Widget child) {
+        if (model.expanded == false) return Offstage();
         return ConstrainedBox(
           constraints: BoxConstraints(maxHeight: 240),
           child: Row(
