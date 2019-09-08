@@ -30,49 +30,58 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
       animationController: _animationController,
       backgroundColor: const Color(0xfff7f7f7),
       builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            buildTopArrowSection(context),
-            SizedBox(height: 12),
-            Text(
-              "41条精品运力池线路，保障充足运力",
-              style: TextStyle(
-                color: Color(0xffFA8C16),
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            Text(
-              "专业坑口代发、代客叫车，省钱又省心",
-              style: TextStyle(
-                color: Color(0xff666666),
-                fontSize: 14,
-              ),
-            ),
-            SizedBox(height: 12),
-            FutureBuilder(
-              future: _future,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasError) {
-                  return Text("${snapshot.error?.toString()}");
-                } else if (snapshot.hasData) {
-                  final data = snapshot.data as ApiResult;
-                  if (data.success()) {
-                    return RegionNavigationWidget(regions: data.data);
-                  } else {
-                    return Text("${data.message()}");
-                  }
-                } else {
-                  return CupertinoActivityIndicator();
-                }
-              },
-            )
-          ],
+        return GestureDetector(
+          child: buildBottomSheetContent(context),
+          onVerticalDragUpdate: (DragUpdateDetails details) {
+            print("onVerticalDragUpdate $details");
+          },
         );
       },
       onClosing: () {},
+    );
+  }
+
+  Column buildBottomSheetContent(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        buildTopArrowSection(context),
+        SizedBox(height: 12),
+        Text(
+          "41条精品运力池线路，保障充足运力",
+          style: TextStyle(
+            color: Color(0xffFA8C16),
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Text(
+          "专业坑口代发、代客叫车，省钱又省心",
+          style: TextStyle(
+            color: Color(0xff666666),
+            fontSize: 14,
+          ),
+        ),
+        SizedBox(height: 12),
+        FutureBuilder(
+          future: _future,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              return Text("${snapshot.error?.toString()}");
+            } else if (snapshot.hasData) {
+              final data = snapshot.data as ApiResult;
+              if (data.success()) {
+                return RegionNavigationWidget(regions: data.data);
+              } else {
+                return Text("${data.message()}");
+              }
+            } else {
+              return CupertinoActivityIndicator();
+            }
+          },
+        )
+      ],
     );
   }
 
