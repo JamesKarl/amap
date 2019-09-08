@@ -2,46 +2,39 @@ import 'package:amap_example/repository/apis.dart';
 import 'package:amap_example/repository/request_result.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'region_navigation_widget.dart';
+import 'transport_model.dart';
 
 class TransportBottomSection extends StatefulWidget {
   @override
   _TransportBottomSectionState createState() => _TransportBottomSectionState();
 }
 
-class _TransportBottomSectionState extends State<TransportBottomSection> {
+class _TransportBottomSectionState extends State<TransportBottomSection>
+    with SingleTickerProviderStateMixin {
   Future<ApiResult> _future;
+  AnimationController _animationController;
 
   @override
   void initState() {
     _future = bussApis.fetchRegionList();
+    _animationController = AnimationController(vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
+      animationController: _animationController,
       backgroundColor: const Color(0xfff7f7f7),
       builder: (BuildContext context) {
         return Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    height: 28,
-                    color: Colors.white,
-                    child: Icon(
-                      Icons.keyboard_arrow_down,
-                      color: Color(0xffbfbfbf),
-                    ),
-                  ),
-                )
-              ],
-            ),
+            buildTopArrowSection(context),
             SizedBox(height: 12),
             Text(
               "41条精品运力池线路，保障充足运力",
@@ -80,6 +73,31 @@ class _TransportBottomSectionState extends State<TransportBottomSection> {
         );
       },
       onClosing: () {},
+    );
+  }
+
+  Widget buildTopArrowSection(BuildContext context) {
+    final model = Provider.of<TransportModel>(context);
+    return GestureDetector(
+      onTap: () {
+        model.toggleExpanded();
+      },
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              height: 28,
+              color: Colors.white,
+              child: Icon(
+                model.expanded
+                    ? Icons.keyboard_arrow_down
+                    : Icons.keyboard_arrow_up,
+                color: Color(0xffbfbfbf),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
