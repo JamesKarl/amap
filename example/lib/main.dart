@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:amap/amap.dart';
 import 'package:amap_example/MapPage.dart';
+import 'package:amap_example/stories/transport/transport_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -61,6 +62,13 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (c) => MapPage()));
+                    },
+                  ),
+                  RaisedButton(
+                    child: Text("代办派车"),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (c) => TransportMainPage()));
                     },
                   ),
                 ],
