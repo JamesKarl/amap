@@ -37,8 +37,7 @@ class _TransportMainPageState extends State<TransportMainPage>
       child: Scaffold(
         appBar: buildAppBar(),
         bottomNavigationBar: buildBottomAppBar(),
-        body: TabBarView(
-          controller: tabController,
+        body: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -46,7 +45,11 @@ class _TransportMainPageState extends State<TransportMainPage>
                 SizedBox(height: 90),
               ],
             ),
-            TransportIntroductionSection(),
+            if (showBottomSheet == false)
+              Container(
+                child: TransportIntroductionSection(),
+                color: Colors.white,
+              ),
           ],
         ),
         bottomSheet: showBottomSheet ? TransportBottomSection() : Offstage(),
