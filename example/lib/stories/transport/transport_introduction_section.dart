@@ -37,7 +37,7 @@ class TransportIntroductionSection extends StatelessWidget {
               style: _styleDescription,
             ),
             SizedBox(height: 16),
-            Placeholder(fallbackHeight: 200),
+            Image.asset("assets/icons/img_che.png"),
             SizedBox(height: 16),
             Row(
               children: <Widget>[
@@ -99,7 +99,7 @@ class TransportIntroductionSection extends StatelessWidget {
               style: _styleDescription,
             ),
             SizedBox(height: 16),
-            Placeholder(fallbackHeight: 200),
+            Image.asset("assets/icons/img_mendian.png"),
             SizedBox(
               height: 16,
             ),
