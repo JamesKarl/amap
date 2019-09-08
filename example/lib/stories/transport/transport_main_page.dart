@@ -40,7 +40,12 @@ class _TransportMainPageState extends State<TransportMainPage>
         body: TabBarView(
           controller: tabController,
           children: <Widget>[
-            TransportMapSection(),
+            Column(
+              children: <Widget>[
+                Expanded(child: TransportMapSection()),
+                SizedBox(height: 90),
+              ],
+            ),
             TransportIntroductionSection(),
           ],
         ),

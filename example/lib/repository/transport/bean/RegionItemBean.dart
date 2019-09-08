@@ -50,6 +50,11 @@ class RegionBean {
 
   @override
   int get hashCode => id.hashCode;
+
+  @override
+  String toString() {
+    return 'RegionBean{name: $name, lng: $lng, lat: $lat, id: $id, flowCount: $flowCount, coalpitCount: $coalpitCount, flowList: $flowList}';
+  }
 }
 
 class FlowBean {
@@ -86,6 +91,11 @@ class FlowBean {
 
   @override
   int get hashCode => id.hashCode;
+
+  @override
+  String toString() {
+    return 'FlowBean{name: $name, id: $id, flowStationList: $flowStationList}';
+  }
 }
 
 class FlowStationBean {
