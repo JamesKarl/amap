@@ -2,12 +2,26 @@ import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
+import 'package:amap_example/repository/transport/transport.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import 'request_result.dart';
 
-class Apis {
+abstract class HttpClient {
+  Future<ApiRequestResult> postRequest(
+    String url, {
+    Map<String, dynamic> params,
+    String body,
+    String dataKey,
+    bool fakeData = false,
+    bool fullUrl = false,
+  });
+
+  const HttpClient();
+}
+
+class Apis extends HttpClient with TransportApi {
   static const String _CONTENT_TYPE_JSON = "application/json";
   static const String _CONTENT_TYPE_FORM_URL_ENCODED =
       "application/x-www-form-urlencoded";
