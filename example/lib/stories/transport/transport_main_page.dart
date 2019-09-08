@@ -16,10 +16,17 @@ class _TransportMainPageState extends State<TransportMainPage>
   TransportModel model;
   final tabs = ["代办派车", "业务介绍"];
 
+  bool showBottomSheet = true;
+
   @override
   void initState() {
     model = TransportModel();
     tabController = TabController(vsync: this, length: tabs.length);
+    tabController.addListener(() {
+      setState(() {
+        showBottomSheet = tabController.index == 0;
+      });
+    });
     super.initState();
   }
 
@@ -37,7 +44,7 @@ class _TransportMainPageState extends State<TransportMainPage>
             TransportIntroductionSection(),
           ],
         ),
-        bottomSheet: TransportBottomSection(),
+        bottomSheet: showBottomSheet ? TransportBottomSection() : Offstage(),
       ),
     );
   }
