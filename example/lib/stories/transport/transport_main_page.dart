@@ -24,7 +24,7 @@ class _TransportMainPageState extends State<TransportMainPage>
     model = TransportModel();
     tabController = TabController(vsync: this, length: tabs.length);
     tabController.addListener(() {
-	    tabIndex.value = tabController.index;
+      tabIndex.value = tabController.index;
     });
     super.initState();
   }
@@ -38,20 +38,20 @@ class _TransportMainPageState extends State<TransportMainPage>
         bottomNavigationBar: buildBottomAppBar(),
         body: Stack(
           children: <Widget>[
-	          Scaffold(
-		          body: TransportMapSection(),
-		          bottomSheet: TransportBottomSection(),
+            Scaffold(
+              body: TransportMapSection(),
+              bottomSheet: TransportBottomSection(),
             ),
-	          ValueListenableBuilder<int>(
-		          valueListenable: tabIndex,
-		          child: Container(
+            ValueListenableBuilder<int>(
+              valueListenable: tabIndex,
+              child: Container(
                 child: TransportIntroductionSection(),
                 color: Colors.white,
               ),
-		          builder: (BuildContext context, int value, Widget child) {
-			          return value == 0 ? Offstage() : child;
-		          },
-	          ),
+              builder: (BuildContext context, int value, Widget child) {
+                return value == 0 ? Offstage() : child;
+              },
+            ),
           ],
         ),
       ),
