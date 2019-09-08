@@ -1,9 +1,10 @@
 import 'package:amap_example/stories/transport/transport_bottom_section.dart';
-import 'package:amap_example/stories/transport/transport_introduction_section.dart';
 import 'package:amap_example/stories/transport/transport_map_section.dart';
 import 'package:amap_example/stories/transport/transport_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'transport_introduction_section.dart';
 
 class TransportMainPage extends StatefulWidget {
   @override
@@ -16,16 +17,14 @@ class _TransportMainPageState extends State<TransportMainPage>
   TransportModel model;
   final tabs = ["代办派车", "业务介绍"];
 
-  bool showBottomSheet = true;
+  ValueNotifier<int> tabIndex = ValueNotifier(0);
 
   @override
   void initState() {
     model = TransportModel();
     tabController = TabController(vsync: this, length: tabs.length);
     tabController.addListener(() {
-      setState(() {
-        showBottomSheet = tabController.index == 0;
-      });
+	    tabIndex.value = tabController.index;
     });
     super.initState();
   }
@@ -39,20 +38,22 @@ class _TransportMainPageState extends State<TransportMainPage>
         bottomNavigationBar: buildBottomAppBar(),
         body: Stack(
           children: <Widget>[
-            Column(
-              children: <Widget>[
-                Expanded(child: TransportMapSection()),
-                SizedBox(height: 90),
-              ],
+	          Scaffold(
+		          body: TransportMapSection(),
+		          bottomSheet: TransportBottomSection(),
             ),
-            if (showBottomSheet == false)
-              Container(
+	          ValueListenableBuilder<int>(
+		          valueListenable: tabIndex,
+		          child: Container(
                 child: TransportIntroductionSection(),
                 color: Colors.white,
               ),
+		          builder: (BuildContext context, int value, Widget child) {
+			          return value == 0 ? Offstage() : child;
+		          },
+	          ),
           ],
         ),
-        bottomSheet: showBottomSheet ? TransportBottomSection() : Offstage(),
       ),
     );
   }
