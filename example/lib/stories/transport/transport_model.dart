@@ -40,4 +40,12 @@ class TransportModel extends ChangeNotifier {
     _expended = !_expended;
     notifyListeners();
   }
+
+  void onVerticalDragUpdate(DragUpdateDetails details) {
+    if (details.delta.dy < -5) {
+      expanded = true;
+    } else if (details.delta.dy > 5) {
+      expanded = false;
+    }
+  }
 }

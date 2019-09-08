@@ -33,7 +33,9 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
         return GestureDetector(
           child: buildBottomSheetContent(context),
           onVerticalDragUpdate: (DragUpdateDetails details) {
-            print("onVerticalDragUpdate $details");
+            print(
+                "onVerticalDragUpdate $details ${details.globalPosition}  local: ${details.localPosition}");
+            Provider.of<TransportModel>(context).onVerticalDragUpdate(details);
           },
         );
       },
