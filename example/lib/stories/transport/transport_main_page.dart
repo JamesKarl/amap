@@ -1,3 +1,4 @@
+import 'package:amap_example/stories/transport/transport_bottom_section.dart';
 import 'package:amap_example/stories/transport/transport_introduction_section.dart';
 import 'package:amap_example/stories/transport/transport_map_section.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class _TransportMainPageState extends State<TransportMainPage>
           TransportIntroductionSection(),
         ],
       ),
+      bottomSheet: TransportBottomSection(),
     );
   }
 
@@ -55,7 +57,7 @@ class _TransportMainPageState extends State<TransportMainPage>
                   Text(
                     "联系我们",
                     style:
-                        TextStyle(color: const Color(0xffFA8C16), fontSize: 15),
+                    TextStyle(color: const Color(0xffFA8C16), fontSize: 15),
                   ),
                 ],
               ),

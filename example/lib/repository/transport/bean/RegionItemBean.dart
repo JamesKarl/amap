@@ -42,6 +42,15 @@ class RegionBean {
         : null;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is RegionBean && runtimeType == other.runtimeType &&
+              id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
 
 class FlowBean {
@@ -70,6 +79,15 @@ class FlowBean {
         : null;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is FlowBean && runtimeType == other.runtimeType &&
+              id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
 
 class FlowStationBean {
@@ -94,5 +112,20 @@ class FlowStationBean {
     data['lat'] = this.lat;
     data['id'] = this.id;
     return data;
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is FlowStationBean &&
+              runtimeType == other.runtimeType &&
+              id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
+
+  @override
+  String toString() {
+    return '$name';
   }
 }
