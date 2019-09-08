@@ -57,7 +57,7 @@ class _TransportMainPageState extends State<TransportMainPage>
                   Text(
                     "联系我们",
                     style:
-                    TextStyle(color: const Color(0xffFA8C16), fontSize: 15),
+                        TextStyle(color: const Color(0xffFA8C16), fontSize: 15),
                   ),
                 ],
               ),
