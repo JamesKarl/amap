@@ -58,7 +58,7 @@ class RegionBean {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is RegionBean && runtimeType == other.runtimeType && id == other.id;
+      other is RegionBean && runtimeType == other.runtimeType && id == other.id;
 
   @override
   int get hashCode => id.hashCode;
@@ -81,8 +81,8 @@ class FlowBean {
     this.id = json['id'];
     this.flowStationList = (json['flowStationList'] as List) != null
         ? (json['flowStationList'] as List)
-        .map((i) => FlowStationBean.fromJson(i))
-        .toList()
+            .map((i) => FlowStationBean.fromJson(i))
+            .toList()
         : null;
   }
 
@@ -99,7 +99,7 @@ class FlowBean {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is FlowBean && runtimeType == other.runtimeType && id == other.id;
+      other is FlowBean && runtimeType == other.runtimeType && id == other.id;
 
   @override
   int get hashCode => id.hashCode;
@@ -137,9 +137,9 @@ class FlowStationBean {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is FlowStationBean &&
-              runtimeType == other.runtimeType &&
-              id == other.id;
+      other is FlowStationBean &&
+          runtimeType == other.runtimeType &&
+          id == other.id;
 
   @override
   int get hashCode => id.hashCode;

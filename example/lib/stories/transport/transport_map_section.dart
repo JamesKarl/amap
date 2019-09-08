@@ -107,7 +107,7 @@ class _TransportMapSectionState extends State<TransportMapSection>
         .addMarkers(DummyData.createMarkerListData(region.getAllPoints()));
     region.flowList?.forEach((flow) async {
       final points =
-      flow.flowStationList.map((p) => LatLng(p.lat, p.lng)).toList();
+          flow.flowStationList.map((p) => LatLng(p.lat, p.lng)).toList();
       points.insert(0, regionCenter);
       final polyline = DummyData.createPolyline(points);
       await mapViewController.addPolyline(polyline);
