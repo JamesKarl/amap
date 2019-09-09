@@ -51,8 +51,8 @@ class _TransportMapSectionState extends State<TransportMapSection>
         }
         final creationParams = MapCreationParams(
             cameraPosition: CameraPosition(
-              target: region.getCenter(),
-            ));
+          target: region.getCenter(),
+        ));
         print(creationParams);
         return MapView(
           controller: mapViewController,
