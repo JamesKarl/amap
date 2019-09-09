@@ -31,10 +31,7 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
   @override
   Widget build(BuildContext context) {
     if (contentHeightMax == null) {
-      contentHeightMax = MediaQuery
-          .of(context)
-          .size
-          .height * 0.4;
+      contentHeightMax = MediaQuery.of(context).size.height * 0.4;
       contentHeight = contentHeightMax;
     }
     return GestureDetector(
