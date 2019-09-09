@@ -39,23 +39,19 @@ class _RegionNavigationWidgetState extends State<RegionNavigationWidget> {
   Widget build(BuildContext context) {
     return Consumer<TransportModel>(
       builder: (BuildContext context, TransportModel model, Widget child) {
-        if (model.expanded == false) return Offstage();
-        return ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: 240),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: buildLeftSection(model),
-              ),
-              Expanded(
-                flex: 3,
-                child: buildRightSection(model),
-              ),
-            ],
-          ),
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              flex: 2,
+              child: buildLeftSection(model),
+            ),
+            Expanded(
+              flex: 3,
+              child: buildRightSection(model),
+            ),
+          ],
         );
       },
     );

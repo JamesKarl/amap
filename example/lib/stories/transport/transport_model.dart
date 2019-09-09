@@ -24,28 +24,4 @@ class TransportModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  bool _expended = true;
-
-  bool get expanded => _expended;
-
-  set expanded(bool value) {
-    if (value != _expended) {
-      _expended = value;
-      notifyListeners();
-    }
-  }
-
-  void toggleExpanded() {
-    _expended = !_expended;
-    notifyListeners();
-  }
-
-  void onVerticalDragUpdate(DragUpdateDetails details) {
-    if (details.delta.dy < -5) {
-      expanded = true;
-    } else if (details.delta.dy > 5) {
-      expanded = false;
-    }
-  }
 }

@@ -16,6 +16,12 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
     with SingleTickerProviderStateMixin {
   Future<ApiResult> _future;
 
+  double contentHeightMax;
+  double contentHeightMin = 92;
+  double contentHeight;
+
+  bool get expanded => contentHeight > contentHeightMax * 0.6;
+
   @override
   void initState() {
     _future = bussApis.fetchRegionList();
@@ -24,9 +30,38 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: buildBottomSheetContent(context),
-      color: Color(0xfff7f7f7),
+    if (contentHeightMax == null) {
+      contentHeightMax = MediaQuery
+          .of(context)
+          .size
+          .height * 0.4;
+      contentHeight = contentHeightMax;
+    }
+    return GestureDetector(
+      child: Container(
+        height: contentHeight,
+        child: buildBottomSheetContent(context),
+        color: Color(0xfff7f7f7),
+      ),
+      onVerticalDragUpdate: (details) {
+        setState(() {
+          contentHeight -= details.delta.dy;
+          if (contentHeight < contentHeightMin) {
+            contentHeight = contentHeightMin;
+          } else if (contentHeight > contentHeightMax) {
+            contentHeight = contentHeightMax;
+          }
+        });
+      },
+      onVerticalDragEnd: (details) {
+        setState(() {
+          if (!expanded) {
+            contentHeight = contentHeightMin;
+          } else {
+            contentHeight = contentHeightMax;
+          }
+        });
+      },
     );
   }
 
@@ -53,22 +88,24 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
           ),
         ),
         SizedBox(height: 12),
-        FutureBuilder(
-          future: _future,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasError) {
-              return Text("${snapshot.error?.toString()}");
-            } else if (snapshot.hasData) {
-              final data = snapshot.data as ApiResult;
-              if (data.success()) {
-                return RegionNavigationWidget(regions: data.data);
+        Expanded(
+          child: FutureBuilder(
+            future: _future,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasError) {
+                return Text("${snapshot.error?.toString()}");
+              } else if (snapshot.hasData) {
+                final data = snapshot.data as ApiResult;
+                if (data.success()) {
+                  return RegionNavigationWidget(regions: data.data);
+                } else {
+                  return Text("${data.message()}");
+                }
               } else {
-                return Text("${data.message()}");
+                return CupertinoActivityIndicator();
               }
-            } else {
-              return CupertinoActivityIndicator();
-            }
-          },
+            },
+          ),
         )
       ],
     );
@@ -78,7 +115,9 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
     final model = Provider.of<TransportModel>(context);
     return GestureDetector(
       onTap: () {
-        model.toggleExpanded();
+        setState(() {
+          contentHeight = expanded ? contentHeightMin : contentHeightMax;
+        });
       },
       child: Row(
         children: <Widget>[
@@ -87,9 +126,7 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
               height: 28,
               color: Colors.white,
               child: Icon(
-                model.expanded
-                    ? Icons.keyboard_arrow_down
-                    : Icons.keyboard_arrow_up,
+                expanded ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up,
                 color: Color(0xffbfbfbf),
               ),
             ),
