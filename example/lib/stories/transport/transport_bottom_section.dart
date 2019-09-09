@@ -26,7 +26,7 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
   Widget build(BuildContext context) {
     return Container(
       child: buildBottomSheetContent(context),
-      color: Colors.white,
+      color: Color(0xfff7f7f7),
     );
   }
 
