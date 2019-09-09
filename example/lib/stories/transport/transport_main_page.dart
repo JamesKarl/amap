@@ -33,10 +33,7 @@ class _TransportMainPageState extends State<TransportMainPage>
   Widget build(BuildContext context) {
     if (model.bottomSheetHeight == null) {
       model.bottomSheetHeight =
-          ValueNotifier(MediaQuery
-              .of(context)
-              .size
-              .height * 0.4);
+          ValueNotifier(MediaQuery.of(context).size.height * 0.4);
     }
     return ChangeNotifierProvider.value(
       value: model,

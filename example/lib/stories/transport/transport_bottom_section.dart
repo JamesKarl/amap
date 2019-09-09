@@ -32,10 +32,7 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
   Widget build(BuildContext context) {
     if (contentHeightMax == null) {
       contentHeightMax =
-          Provider
-              .of<TransportModel>(context)
-              .bottomSheetHeight
-              .value;
+          Provider.of<TransportModel>(context).bottomSheetHeight.value;
       contentHeight = contentHeightMax;
     }
     return GestureDetector(
@@ -61,10 +58,7 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
           } else {
             contentHeight = contentHeightMax;
           }
-          Provider
-              .of<TransportModel>(context)
-              .bottomSheetHeight
-              .value =
+          Provider.of<TransportModel>(context).bottomSheetHeight.value =
               contentHeight;
         });
       },
