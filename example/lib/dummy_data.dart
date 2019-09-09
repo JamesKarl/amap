@@ -59,10 +59,10 @@ abstract class DummyData {
     return options;
   }
 
-  static PolylineOptions createPolyline(List<LatLng> points) {
+  static PolylineOptions createPolyline(List<LatLng> points, bool highlighted) {
     return PolylineOptions(
       points: points,
-      color: Colors.green.value,
+      color: Color(highlighted ? 0xff1890FF : 0xff13C2C2).value,
       width: 8,
       dottedLine: false,
       lineCapType: LineCapType.LineCapArrow,

@@ -30,6 +30,12 @@ class _TransportMapSectionState extends State<TransportMapSection>
         onRegionUpdated(region);
       }
     });
+    currentFlow.addListener(() {
+      final flow = currentFlow.value;
+      if (flow != null) {
+        onFlowUpdated(flow);
+      }
+    });
     super.initState();
   }
 
@@ -109,8 +115,20 @@ class _TransportMapSectionState extends State<TransportMapSection>
       final points =
           flow.flowStationList.map((p) => LatLng(p.lat, p.lng)).toList();
       points.insert(0, regionCenter);
-      final polyline = DummyData.createPolyline(points);
+      final polyline = DummyData.createPolyline(points, false);
       await mapViewController.addPolyline(polyline);
     });
+  }
+
+  void onFlowUpdated(FlowBean flow) {
+    final region = currentRegion.value;
+    if (region == null) return;
+    final points = flow?.getAllPoints();
+    if (points?.isNotEmpty == true) {
+      final regionCenter = LatLng(region.lat, region.lng);
+      final polyline =
+          DummyData.createPolyline([regionCenter, ...points], true);
+      mapViewController.addPolyline(polyline);
+    }
   }
 }

@@ -76,6 +76,10 @@ class FlowBean {
 
   FlowBean({this.name, this.id, this.flowStationList});
 
+  List<LatLng> getAllPoints() {
+    return flowStationList?.map((s) => LatLng(s.lat, s.lng))?.toList();
+  }
+
   FlowBean.fromJson(Map<String, dynamic> json) {
     this.name = json['name'];
     this.id = json['id'];
