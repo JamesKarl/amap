@@ -4,6 +4,7 @@ import 'package:amap/amap.dart';
 import 'package:amap_example/dummy_data.dart';
 import 'package:amap_example/repository/transport/bean/RegionItemBean.dart';
 import 'package:amap_example/stories/transport/transport_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,8 +43,22 @@ class _TransportMapSectionState extends State<TransportMapSection>
   @override
   Widget build(BuildContext context) {
     model = Provider.of<TransportModel>(context);
-    return MapView(
-      controller: mapViewController,
+    return Consumer<TransportModel>(
+      builder: (BuildContext context, TransportModel value, Widget child) {
+        final region = value.currentRegion;
+        if (region == null) {
+          return CupertinoActivityIndicator();
+        }
+        final creationParams = MapCreationParams(
+            cameraPosition: CameraPosition(
+              target: region.getCenter(),
+            ));
+        print(creationParams);
+        return MapView(
+          controller: mapViewController,
+          creationParams: creationParams,
+        );
+      },
     );
   }
 

@@ -55,6 +55,8 @@ class RegionBean {
     return points;
   }
 
+  LatLng getCenter() => LatLng(lat, lng);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

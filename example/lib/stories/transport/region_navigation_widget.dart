@@ -39,6 +39,11 @@ class _RegionNavigationWidgetState extends State<RegionNavigationWidget> {
   Widget build(BuildContext context) {
     return Consumer<TransportModel>(
       builder: (BuildContext context, TransportModel model, Widget child) {
+        if (model.currentRegion == null) {
+          Future.delayed(Duration(milliseconds: 5), () {
+            model.currentRegion = regions.first;
+          });
+        }
         return Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
