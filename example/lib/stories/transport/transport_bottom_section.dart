@@ -15,31 +15,18 @@ class TransportBottomSection extends StatefulWidget {
 class _TransportBottomSectionState extends State<TransportBottomSection>
     with SingleTickerProviderStateMixin {
   Future<ApiResult> _future;
-  AnimationController _animationController;
 
   @override
   void initState() {
     _future = bussApis.fetchRegionList();
-    _animationController = AnimationController(vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BottomSheet(
-      animationController: _animationController,
-      backgroundColor: const Color(0xfff7f7f7),
-      builder: (BuildContext context) {
-        return GestureDetector(
-          child: buildBottomSheetContent(context),
-          onVerticalDragUpdate: (DragUpdateDetails details) {
-            print(
-                "onVerticalDragUpdate $details ${details.globalPosition}  local: ${details.localPosition}");
-            Provider.of<TransportModel>(context).onVerticalDragUpdate(details);
-          },
-        );
-      },
-      onClosing: () {},
+    return Container(
+      child: buildBottomSheetContent(context),
+      color: Colors.white,
     );
   }
 

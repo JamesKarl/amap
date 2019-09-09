@@ -38,9 +38,10 @@ class _TransportMainPageState extends State<TransportMainPage>
         bottomNavigationBar: buildBottomAppBar(),
         body: Stack(
           children: <Widget>[
-            Scaffold(
-              body: TransportMapSection(),
-              bottomSheet: TransportBottomSection(),
+            TransportMapSection(),
+            Align(
+              child: TransportBottomSection(),
+              alignment: Alignment.bottomCenter,
             ),
             ValueListenableBuilder<int>(
               valueListenable: tabIndex,
