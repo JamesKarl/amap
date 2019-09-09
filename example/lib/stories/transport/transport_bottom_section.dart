@@ -117,6 +117,7 @@ class _TransportBottomSectionState extends State<TransportBottomSection>
       onTap: () {
         setState(() {
           contentHeight = expanded ? contentHeightMin : contentHeightMax;
+          model.bottomSheetHeight.value = contentHeight;
         });
       },
       child: Row(
