@@ -31,6 +31,13 @@ class _TransportMainPageState extends State<TransportMainPage>
 
   @override
   Widget build(BuildContext context) {
+    if (model.bottomSheetHeight == null) {
+      model.bottomSheetHeight =
+          ValueNotifier(MediaQuery
+              .of(context)
+              .size
+              .height * 0.4);
+    }
     return ChangeNotifierProvider.value(
       value: model,
       child: Scaffold(
@@ -38,7 +45,17 @@ class _TransportMainPageState extends State<TransportMainPage>
         bottomNavigationBar: buildBottomAppBar(),
         body: Stack(
           children: <Widget>[
-            TransportMapSection(),
+            Column(
+              children: <Widget>[
+                Expanded(child: TransportMapSection()),
+                ValueListenableBuilder<double>(
+                  valueListenable: model.bottomSheetHeight,
+                  builder: (BuildContext context, double value, Widget child) {
+                    return Container(height: value);
+                  },
+                )
+              ],
+            ),
             Align(
               child: TransportBottomSection(),
               alignment: Alignment.bottomCenter,

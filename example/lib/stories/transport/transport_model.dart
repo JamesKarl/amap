@@ -24,4 +24,6 @@ class TransportModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  ValueNotifier<double> bottomSheetHeight;
 }
