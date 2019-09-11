@@ -15,6 +15,9 @@ A wrapper of AMap for both Android and iOS
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
+  s.dependency 'AMap3DMap', '6.9.0'
+  s.dependency 'MJExtension', '3.1.1'
+  s.static_framework = true
 
   s.ios.deployment_target = '8.0'
 end
