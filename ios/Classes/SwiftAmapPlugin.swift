@@ -9,6 +9,9 @@ public class SwiftAmapPlugin: NSObject, FlutterPlugin {
         let channel = FlutterMethodChannel(name: channelName, binaryMessenger: registrar.messenger())
         let instance = SwiftAmapPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
+        
+        let mapViewFactory = MapViewFactory(registrar: registrar)
+        registrar.register(mapViewFactory, withId: mapViewType)
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
