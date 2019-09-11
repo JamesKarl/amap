@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MAMapKit
 
 class PlatformMapView : NSObject, FlutterPlatformView {
     
@@ -20,6 +21,6 @@ class PlatformMapView : NSObject, FlutterPlatformView {
     }
     
     func view() -> UIView {
-        return UIButton(frame: frame)
+        return MAMapView(frame: frame)
     }
 }
