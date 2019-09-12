@@ -29,7 +29,7 @@ class MapMethods {
     static func handleMessage(mapView: MAMapView, methodId: String, data: Any?, reply: FlutterReply) {
         print("MAP handleMessage \(String(describing: methodId)) -> \(String(describing: data))")
         flutterApis.forEach({api in
-            if api.handle(methodId: methodId, mapView: mapView, data: data) {
+            if api.handle(methodId: methodId, mapView: mapView, data: data, reply: reply) {
                 return
             }
         })

@@ -11,5 +11,5 @@ import MAMapKit
 protocol FlutterApi {
     
     //return true if message has been handled.
-    func handle(methodId: String, mapView: MAMapView, data: Any?) -> Bool
+    func handle(methodId: String, mapView: MAMapView, data: Any?, reply: FlutterReply) -> Bool
 }
