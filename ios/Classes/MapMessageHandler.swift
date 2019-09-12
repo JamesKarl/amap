@@ -27,7 +27,9 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
     
     func setup() {
         messageChannel.setMessageHandler({ message, reply in
-            self.handleMessage(message: message, reply: reply)
+            if let message = message {
+                self.handleMessage(message: message, reply: reply)
+            }
         })
         mapView.delegate = self
     }
@@ -38,5 +40,15 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
     
     func mapViewDidFinishLoadingMap(_ mapView: MAMapView!) {
         print("xxxxx map loaded")
+        sendJsonMessageToFlutter(message: ReplyToFlutter<String>.success(id: MapMethods.onMapLoaded))
+    }
+    
+    func sendJsonMessageToFlutter<T: Codable> (message: ReplyToFlutter<T>) {
+        let jsonEncoder = JSONEncoder()
+        if let jsonData = try? jsonEncoder.encode(message) {
+            messageChannel.sendMessage(String(data:jsonData, encoding: .utf8))
+        } else {
+            print("sendJsonMessageToFlutter failed \(message)")
+        }
     }
 }
