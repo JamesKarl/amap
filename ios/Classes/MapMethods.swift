@@ -24,15 +24,22 @@ class MapMethods {
     static let jsonEncoder = JSONEncoder()
     static let jsonDecoder = JSONDecoder()
     
+    static let flutterApis:[FlutterApi] = [MarkerApi(), MapInfoApi(), CameraApi()]
+    
     static func handleMessage(mapView: MAMapView, methodId: String, data: Any?, reply: FlutterReply) {
-        
+        print("MAP handleMessage \(String(describing: methodId)) -> \(String(describing: data))")
+        flutterApis.forEach({api in
+            if api.handle(methodId: methodId, mapView: mapView, data: data) {
+                return
+            }
+        })
     }
     
     static func handleException(methodId: String, message: String?, reply: FlutterReply) {
         notifyFlutter(reply: reply, message: ReplyToFlutter<String>.failed(id: methodId, message: methodId))
     }
     
-    private static func notifyFlutter<T: Codable>(reply: FlutterReply, message: ReplyToFlutter<T>) {
+    static func notifyFlutter<T: Codable>(reply: FlutterReply, message: ReplyToFlutter<T>) {
         if let jsonData = try? jsonEncoder.encode(message) {
             reply(String(data:jsonData, encoding: .utf8))
         } else {
