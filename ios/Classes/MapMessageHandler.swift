@@ -27,15 +27,17 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
     
     func setup() {
         messageChannel.setMessageHandler({ message, reply in
-            if let message = message {
-                self.handleMessage(message: message, reply: reply)
+            print("message from flutter \(String(describing: message))")
+            if let messageData  = (message as? String)?.data(using: .utf8) {
+                if let json = (try? JSONSerialization.jsonObject(with: messageData, options: [])) as? [String: Any?] {
+                    if let methodId = json["id"] as? String {
+                        MapMethods.handleMessage(mapView: self.mapView, methodId: methodId, data: json["data"] as Any?, reply: reply)
+                    }
+                }
+                
             }
         })
         mapView.delegate = self
-    }
-    
-    func handleMessage(message: Any, reply: FlutterReply) {
-        
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MAMapView!) {
@@ -44,8 +46,7 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
     }
     
     func sendJsonMessageToFlutter<T: Codable> (message: ReplyToFlutter<T>) {
-        let jsonEncoder = JSONEncoder()
-        if let jsonData = try? jsonEncoder.encode(message) {
+        if let jsonData = try? MapMethods.jsonEncoder.encode(message) {
             messageChannel.sendMessage(String(data:jsonData, encoding: .utf8))
         } else {
             print("sendJsonMessageToFlutter failed \(message)")
