@@ -9,14 +9,14 @@ import Foundation
 import MAMapKit
 
 class CameraApi : FlutterApi {
-    func handle(methodId: String, mapView: MAMapView, data: Any?, reply: FlutterReply) -> Bool {
-        var consumed = true
+    func handle(mapView: MAMapView, methodId: String,  data: Any?) -> ReplyToFlutter? {
+        var result: ReplyToFlutter? = nil
         switch methodId {
         case "changeBearing":  changeBearing(mapView: mapView,data: data)
         case "changeLatLng":  changeLatLng(mapView: mapView,data: data)
         case "changeTilt":  changeTilt(mapView: mapView,data: data)
-        case "zoomIn":  zoomIn(mapView: mapView)
-        case "zoomOut":  zoomOut(mapView: mapView)
+        case "zoomIn":  result = zoomIn(mapView: mapView)
+        case "zoomOut":  result = zoomOut(mapView: mapView)
         case "zoomTo":  zoomTo(mapView: mapView,data: data)
         case "newLatLng":  newLatLng(mapView: mapView,data: data)
         case "newLatLngZoom":  newLatLngZoom(mapView: mapView,data: data)
@@ -26,9 +26,9 @@ class CameraApi : FlutterApi {
         case "newLatLngBoundsRect":  newLatLngBoundsRect(mapView: mapView,data: data)
         case "zoomBy":  zoomBy(mapView: mapView,data: data)
         default:
-            consumed = false
+            result = nil
         }
-        return consumed
+        return result
     }
     
     private func changeBearing(mapView: MAMapView, data: Any?) {
@@ -51,18 +51,20 @@ class CameraApi : FlutterApi {
         //    return ReplyToFlutter.Success()
     }
     
-    private func zoomIn(mapView: MAMapView) {
+    private func zoomIn(mapView: MAMapView) -> ReplyToFlutter {
         let zoom = mapView.zoomLevel + 1
         if zoom <= mapView.maxZoomLevel {
             mapView.setZoomLevel(zoom , animated:  true)
         }
+        return ReplyToFlutter.success()
     }
     
-    private func zoomOut(mapView: MAMapView) {
+    private func zoomOut(mapView: MAMapView) -> ReplyToFlutter {
         let zoom = mapView.zoomLevel - 1
         if (zoom <= mapView.minZoomLevel) {
             mapView.setZoomLevel(zoom, animated: true)
         }
+        return ReplyToFlutter.success()
     }
     
     private func zoomTo(mapView: MAMapView, data: Any?) {

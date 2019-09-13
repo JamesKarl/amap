@@ -28,26 +28,26 @@ class MapMethods {
     
     static func handleMessage(mapView: MAMapView, methodId: String, data: Any?, reply: FlutterReply) {
         print("MAP handleMessage \(String(describing: methodId)) -> \(String(describing: data))")
-        flutterApis.forEach({api in
-            if api.handle(methodId: methodId, mapView: mapView, data: data, reply: reply) {
+        for api in flutterApis {
+            if let result = api.handle(mapView: mapView, methodId: methodId, data: data) {
+                result.id = methodId
+                notifyFlutter(reply: reply, message: result)
                 return
             }
-        })
+        }
+        handleException(methodId: "???", message: "\(methodId) NOT IMPLEMENTED ", reply: reply)
     }
     
     static func handleException(methodId: String, message: String?, reply: FlutterReply) {
-        notifyFlutter(reply: reply, message: ReplyToFlutter<String>.failed(id: methodId, message: methodId))
+        notifyFlutter(reply: reply, message: ReplyToFlutter.failed(id: methodId, message: methodId))
     }
     
-    static func notifyFlutter<T: Codable>(reply: FlutterReply, message: ReplyToFlutter<T>) {
-        if let jsonData = try? jsonEncoder.encode(message) {
-            reply(String(data:jsonData, encoding: .utf8))
+    static func notifyFlutter(reply: FlutterReply, message: ReplyToFlutter) {
+        if let json = message.toJson() {
+            reply(json)
         } else {
-            let errorMessage = ReplyToFlutter<String>.failed(id: message.id, message: "encode message to json string failed.")
-            if let jsonData = try? jsonEncoder.encode(errorMessage) {
-                reply(String(data: jsonData, encoding: .utf8))
-            }
-            
+            let errorMessage = ReplyToFlutter.failed(id: message.id, message: "encode message \(message) to json string failed.")
+            reply(errorMessage.toJson())
         }
     }
 }

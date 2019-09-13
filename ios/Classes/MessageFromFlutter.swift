@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MessageFromFlutter<T: Codable>: Codable {
+struct MessageFromFlutter {
     var id: String
-    var data: T?
+    var data: Any?
 }

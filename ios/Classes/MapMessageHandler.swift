@@ -28,26 +28,39 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
     func setup() {
         messageChannel.setMessageHandler({ message, reply in
             print("message from flutter \(String(describing: message))")
-            if let messageData  = (message as? String)?.data(using: .utf8) {
-                if let json = (try? JSONSerialization.jsonObject(with: messageData, options: [])) as? [String: Any?] {
-                    if let methodId = json["id"] as? String {
-                        MapMethods.handleMessage(mapView: self.mapView, methodId: methodId, data: json["data"] as Any?, reply: reply)
-                    }
-                }
-                
+            if let messageData  = message as? String {
+                self.onReceiveFlutterMessage(message: messageData, reply: reply)
+            } else {
+                self.sendJsonMessageToFlutter(message: ReplyToFlutter.failed(message:"message must be a json string"))
             }
         })
         mapView.delegate = self
     }
     
-    func mapViewDidFinishLoadingMap(_ mapView: MAMapView!) {
-        print("xxxxx map loaded")
-        sendJsonMessageToFlutter(message: ReplyToFlutter<String>.success(id: MapMethods.onMapLoaded))
+    func onReceiveFlutterMessage(message: String, reply: FlutterReply) {
+        if let messageData  = message.data(using: .utf8) {
+            if let json = (try? JSONSerialization.jsonObject(with: messageData, options: [])) as? [String: Any?] {
+                if let methodId = json["id"] as? String {
+                    MapMethods.handleMessage(mapView: self.mapView, methodId: methodId, data: json["data"] as Any?, reply: reply)
+                } else {
+                    self.sendJsonMessageToFlutter(message: ReplyToFlutter.failed(message:"method id NOT found \(String(describing: message))"))
+                }
+            } else  {
+                self.sendJsonMessageToFlutter(message: ReplyToFlutter.failed(message:"parse josn message \(String(describing: message)) failed)"))
+            }
+        } else {
+            self.sendJsonMessageToFlutter(message: ReplyToFlutter.failed(message:"message  \(String(describing: message)) must be a json string"))
+        }
     }
     
-    func sendJsonMessageToFlutter<T: Codable> (message: ReplyToFlutter<T>) {
-        if let jsonData = try? MapMethods.jsonEncoder.encode(message) {
-            messageChannel.sendMessage(String(data:jsonData, encoding: .utf8))
+    func mapViewDidFinishLoadingMap(_ mapView: MAMapView!) {
+        print("xxxxx map loaded")
+        sendJsonMessageToFlutter(message: ReplyToFlutter.success(id: MapMethods.onMapLoaded))
+    }
+    
+    func sendJsonMessageToFlutter(message: ReplyToFlutter) {
+        if let json = message.toJson() {
+            messageChannel.sendMessage(json)
         } else {
             print("sendJsonMessageToFlutter failed \(message)")
         }

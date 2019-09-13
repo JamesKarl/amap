@@ -10,7 +10,7 @@ import MAMapKit
 
 class MarkerApi : FlutterApi {
     
-    func handle(methodId: String, mapView: MAMapView, data: Any?, reply: FlutterReply) -> Bool {
-        return false
+    func handle(mapView: MAMapView, methodId: String, data: Any?) -> ReplyToFlutter? {
+        return nil
     }
 }

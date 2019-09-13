@@ -10,8 +10,8 @@ import MAMapKit
 
 class MapInfoApi : FlutterApi {
     
-    func handle(methodId: String, mapView: MAMapView, data: Any?, reply: FlutterReply) -> Bool {
-        var consumed = true
+    func handle(mapView: MAMapView, methodId: String, data: Any?) -> ReplyToFlutter? {
+        var result: ReplyToFlutter? = nil
         switch methodId {
         case "setZoomControlsEnabled":
             setZoomControlsEnabled(mapView: mapView, data: data)
@@ -39,9 +39,9 @@ class MapInfoApi : FlutterApi {
         case "getCenter" :
             getCenter(mapView: mapView)
         default :
-            consumed = false
+            result = nil
         }
-        return consumed
+        return result
     }
     
     
