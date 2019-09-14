@@ -45,27 +45,28 @@ class MapInfoApi : FlutterApi {
         return result
     }
     
-    
     private func getCenter(mapView: MAMapView) -> ReplyToFlutter {
         //        let target = mapView.cameraPosition.target
         //        let data = {
         //            "longitude" : target.longitude,
         //            "latitude" : target.latitude
         //        }
-        return ReplyToFlutter.illegalArgumentException()
+        return ReplyToFlutter.notImplemented()
     }
     
     private func setZoomControlsEnabled(mapView: MAMapView, data: Any?)-> ReplyToFlutter {
-        //        require(data is Boolean)
-        //        mapView.uiSettings.isZoomControlsEnabled = data
-        //        return Bool.Success()
+        if let enable = data as? Bool {
+            mapView.isZoomEnabled = enable
+            return ReplyToFlutter.success()
+        }
         return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setCompassEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter{
-        //        require(data is Boolean)
-        //        mapView.uiSettings.isCompassEnabled = data
-        //        return Bool.Success()
+    private func setCompassEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
+        if let show = data as? Bool {
+            mapView.showsCompass = show
+            return ReplyToFlutter.success()
+        }
         return ReplyToFlutter.illegalArgumentException()
     }
     
@@ -73,48 +74,65 @@ class MapInfoApi : FlutterApi {
         //        require(data is Boolean)
         //        mapView.uiSettings.isMyLocationButtonEnabled = data
         //        return Bool.Success()
-        return ReplyToFlutter.illegalArgumentException()
+        return ReplyToFlutter.notImplemented()
     }
     
     private func setMyLocationEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter{
         //        require(data is Boolean)
         //        mapView.isMyLocationEnabled = data
         //        return Bool.Success()
-        return ReplyToFlutter.illegalArgumentException()
+        return ReplyToFlutter.notImplemented()
     }
     
     private func setScaleControlsEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter{
-        //        require(data is Boolean)
-        //        mapView.uiSettings.isScaleControlsEnabled = data
-        //        return Bool.Success()
+        if let show = data as? Bool {
+            mapView.showsScale = show
+            return ReplyToFlutter.success()
+        }
         return ReplyToFlutter.illegalArgumentException()
     }
     
     private func setLogoPosition(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
-        //        require(data is Int)
-        //        mapView.uiSettings.logoPosition = data
-        //        return Bool.Success()
+        if let position = data as? Int {
+            let w = mapView.bounds.width;
+            var x = 10
+            switch position {
+            case 0:
+                x = 10
+            case 1:
+                x = Int(w / 2)
+            case 2:
+                x = Int(w - 30)
+            default:
+                x = 20
+            }
+            mapView.logoCenter = CGPoint(x: x, y: 12)
+            return ReplyToFlutter.success()
+        }
         return ReplyToFlutter.illegalArgumentException()
     }
     
     private func setZoomGesturesEnabled(mapView: MAMapView, data:  Any?) -> ReplyToFlutter {
-        //        require(data is Boolean)
-        //        mapView.uiSettings.isZoomGesturesEnabled = data
-        //        return Bool.Success()
+        if let enabled = data as? Bool {
+            mapView.isZoomEnabled = enabled
+            return ReplyToFlutter.success()
+        }
         return ReplyToFlutter.illegalArgumentException()
     }
     
     private func setScrollGesturesEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
-        //        require(data is Boolean)
-        //        mapView.uiSettings.isScrollGesturesEnabled = data
-        //        return Bool.Success()
+        if let enabled = data as? Bool {
+            mapView.isScrollEnabled = enabled
+            return ReplyToFlutter.success()
+        }
         return ReplyToFlutter.illegalArgumentException()
     }
     
     private func setRotateGesturesEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
-        //        require(data is Boolean)
-        //        mapView.uiSettings.isRotateGesturesEnabled = data
-        //        return Bool.Success()
+        if let enabled = data as? Bool {
+            mapView.isRotateEnabled = enabled
+            return ReplyToFlutter.success()
+        }
         return ReplyToFlutter.illegalArgumentException()
     }
     
@@ -122,20 +140,20 @@ class MapInfoApi : FlutterApi {
         //        require(data is Boolean)
         //        mapView.uiSettings.isTiltGesturesEnabled = data
         //        return Bool.Success()
-        return ReplyToFlutter.illegalArgumentException()
+        return ReplyToFlutter.notImplemented()
     }
     
     private func setPointToCenter(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
         //        require(data is JSONObject)
         //        mapView.setPointToCenter(data["x"] as Int, data["y"] as Int)
         //        return Bool.Success()
-        return ReplyToFlutter.illegalArgumentException()
+        return ReplyToFlutter.notImplemented()
     }
     
     private func setGestureScaleBymapViewCenter(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
         //        require(data is Boolean)
         //        mapView.uiSettings.isGestureScaleBymapViewCenter = data
         //        return Bool.Success()
-        return ReplyToFlutter.illegalArgumentException()
+        return ReplyToFlutter.notImplemented()
     }
 }
