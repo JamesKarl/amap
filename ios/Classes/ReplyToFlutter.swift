@@ -28,6 +28,14 @@ class ReplyToFlutter {
         return ReplyToFlutter(id: id, success: false, message: message, data: data)
     }
     
+    static func illegalArgumentException(message: String = "Illegal Argument Exception") -> ReplyToFlutter {
+        return failed(message: message)
+    }
+    
+    static func notImplemented(message: String = "NOT implemented Exception") -> ReplyToFlutter {
+        return failed(message: message)
+    }
+    
     func toJson() -> String? {
         let jsonData = [
             "id": id,
