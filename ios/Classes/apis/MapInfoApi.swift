@@ -14,30 +14,31 @@ class MapInfoApi : FlutterApi {
         var result: ReplyToFlutter? = nil
         switch methodId {
         case "setZoomControlsEnabled":
-            setZoomControlsEnabled(mapView: mapView, data: data)
+            result = setZoomControlsEnabled(mapView: mapView, data: data)
         case "setCompassEnabled":
-            setCompassEnabled(mapView: mapView, data: data)
+            result = setCompassEnabled(mapView: mapView, data: data)
         case "setMyLocationButtonEnabled" :
-            setMyLocationButtonEnabled(mapView: mapView, data: data)
+            result = setMyLocationButtonEnabled(mapView: mapView, data: data)
         case "setMyLocationEnabled" :
-            setMyLocationEnabled(mapView: mapView, data: data)
+            result = setMyLocationEnabled(mapView: mapView, data: data)
         case "setScaleControlsEnabled" :
-            setScaleControlsEnabled(mapView: mapView, data: data)
+            result = setScaleControlsEnabled(mapView: mapView, data: data)
         case "setLogoPosition" :
-            setLogoPosition(mapView: mapView, data: data)
+            result = setLogoPosition(mapView: mapView, data: data)
         case "setZoomGesturesEnabled" :
-            setZoomGesturesEnabled(mapView: mapView, data: data)
+            result = setZoomGesturesEnabled(mapView: mapView, data: data)
         case "setScrollGesturesEnabled" :
-            setScrollGesturesEnabled(mapView: mapView, data: data)
+            result = setScrollGesturesEnabled(mapView: mapView, data: data)
         case "setRotateGesturesEnabled" :
-            setRotateGesturesEnabled(mapView: mapView, data: data)
+            result = setRotateGesturesEnabled(mapView: mapView, data: data)
         case "setTiltGesturesEnabled" :
-            setTiltGesturesEnabled(mapView: mapView, data: data)
+            result = setTiltGesturesEnabled(mapView: mapView, data: data)
         case "setPointToCenter" :
-            setPointToCenter(mapView: mapView, data: data)
-        case "setGestureScaleBymapViewCenter" : setGestureScaleBymapViewCenter(mapView: mapView, data: data)
+            result = setPointToCenter(mapView: mapView, data: data)
+        case "setGestureScaleBymapViewCenter" :
+            result = setGestureScaleBymapViewCenter(mapView: mapView, data: data)
         case "getCenter" :
-            getCenter(mapView: mapView)
+            result = getCenter(mapView: mapView)
         default :
             result = nil
         }
@@ -45,83 +46,96 @@ class MapInfoApi : FlutterApi {
     }
     
     
-    private func getCenter(mapView: MAMapView) {
+    private func getCenter(mapView: MAMapView) -> ReplyToFlutter {
         //        let target = mapView.cameraPosition.target
         //        let data = {
         //            "longitude" : target.longitude,
         //            "latitude" : target.latitude
         //        }
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setZoomControlsEnabled(mapView: MAMapView, data: Any?) {
+    private func setZoomControlsEnabled(mapView: MAMapView, data: Any?)-> ReplyToFlutter {
         //        require(data is Boolean)
         //        mapView.uiSettings.isZoomControlsEnabled = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setCompassEnabled(mapView: MAMapView, data: Any?) {
+    private func setCompassEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter{
         //        require(data is Boolean)
         //        mapView.uiSettings.isCompassEnabled = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setMyLocationButtonEnabled(mapView: MAMapView,  data: Any?) {
+    private func setMyLocationButtonEnabled(mapView: MAMapView,  data: Any?) -> ReplyToFlutter{
         //        require(data is Boolean)
         //        mapView.uiSettings.isMyLocationButtonEnabled = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setMyLocationEnabled(mapView: MAMapView, data: Any?) {
+    private func setMyLocationEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter{
         //        require(data is Boolean)
         //        mapView.isMyLocationEnabled = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setScaleControlsEnabled(mapView: MAMapView, data: Any?) {
+    private func setScaleControlsEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter{
         //        require(data is Boolean)
         //        mapView.uiSettings.isScaleControlsEnabled = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setLogoPosition(mapView: MAMapView, data: Any?) {
+    private func setLogoPosition(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
         //        require(data is Int)
         //        mapView.uiSettings.logoPosition = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setZoomGesturesEnabled(mapView: MAMapView, data:  Any?) {
+    private func setZoomGesturesEnabled(mapView: MAMapView, data:  Any?) -> ReplyToFlutter {
         //        require(data is Boolean)
         //        mapView.uiSettings.isZoomGesturesEnabled = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setScrollGesturesEnabled(mapView: MAMapView, data: Any?) {
+    private func setScrollGesturesEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
         //        require(data is Boolean)
         //        mapView.uiSettings.isScrollGesturesEnabled = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setRotateGesturesEnabled(mapView: MAMapView, data: Any?) {
+    private func setRotateGesturesEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
         //        require(data is Boolean)
         //        mapView.uiSettings.isRotateGesturesEnabled = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setTiltGesturesEnabled(mapView: MAMapView, data: Any?) {
+    private func setTiltGesturesEnabled(mapView: MAMapView, data: Any?) -> ReplyToFlutter{
         //        require(data is Boolean)
         //        mapView.uiSettings.isTiltGesturesEnabled = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setPointToCenter(mapView: MAMapView, data: Any?) {
+    private func setPointToCenter(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
         //        require(data is JSONObject)
         //        mapView.setPointToCenter(data["x"] as Int, data["y"] as Int)
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
     
-    private func setGestureScaleBymapViewCenter(mapView: MAMapView, data: Any?) {
+    private func setGestureScaleBymapViewCenter(mapView: MAMapView, data: Any?) -> ReplyToFlutter {
         //        require(data is Boolean)
         //        mapView.uiSettings.isGestureScaleBymapViewCenter = data
         //        return Bool.Success()
+        return ReplyToFlutter.illegalArgumentException()
     }
 }
