@@ -123,16 +123,14 @@ class _TransportMainPageState extends State<TransportMainPage>
 
   AppBar buildAppBar() {
     return AppBar(
-      title: SizedBox(
-        width: 220,
-        child: TabBar(
-            controller: tabController,
-            indicatorColor: const Color(0xffFA8C16),
-            labelColor: const Color(0xffFA8C16),
-            labelStyle: TextStyle(fontSize: 18),
-            unselectedLabelColor: Colors.white,
-            tabs: tabs.map((t) => Tab(text: t)).toList()),
-      ),
+      title: TabBar(
+          controller: tabController,
+          indicatorColor: const Color(0xffFA8C16),
+          labelColor: const Color(0xffFA8C16),
+          labelStyle: TextStyle(fontSize: 18),
+          unselectedLabelColor: Colors.white,
+          indicatorSize: TabBarIndicatorSize.label,
+          tabs: tabs.map((t) => Tab(text: t)).toList()),
       centerTitle: true,
     );
   }
