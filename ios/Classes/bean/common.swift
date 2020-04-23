@@ -10,12 +10,14 @@ import MAMapKit
 
 extension CLLocationCoordinate2D {
     init?(json: [String: Double]) {
-        if let lat = json["latitude"], let lon = json["longitude"] {
+       /* if let lat = json["latitude"], let lon = json["longitude"] {
             self.latitude = lat
             self.longitude = lon
         } else {
             return nil
         }
+ */
+        return nil
     }
 }
 
