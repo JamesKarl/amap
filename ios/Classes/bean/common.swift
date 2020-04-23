@@ -8,24 +8,54 @@
 import Foundation
 import MAMapKit
 
-extension CLLocationCoordinate2D {
-    init?(json: [String: Double]) {
-       /* if let lat = json["latitude"], let lon = json["longitude"] {
-            self.latitude = lat
-            self.longitude = lon
-        } else {
-            return nil
-        }
- */
-        return nil
+struct LatLngData {
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
+    
+    init(json: [String: Any?]) {
+        latitude = json["latitude"] as? Double ?? 0.0
+        longitude = json["longitude"] as? Double ?? 0.0
+    }
+    
+    init(lat: Double = 0.0, lon: Double = 0.0) {
+        
     }
 }
 
 struct ScreenPoint {
     var x: Int
     var y: Int
-    
-    //    func toPoint() -> MAPoint
 }
 
+struct LatLngBoundsData {
+    var northeast: LatLngData = LatLngData()
+    var southwest: LatLngData = LatLngData()
+}
 
+struct CameraPositionData {
+    var bearing: Double? = nil
+    var target: LatLngData? = nil
+    var tilt: Double? = nil
+    var zoom: Double? = nil
+    
+    init(json: [String: Any?]) {
+        bearing = json["bearing"] as? Double
+        tilt = json["tilt"] as? Double
+        zoom = json["zoom"] as? Double
+        if let targetValue = json["target"] as? [String: Any?] {
+            target = LatLngData(json: targetValue)
+        }
+    }
+}
+
+struct MapCreationParams {
+    let cameraPosition: CameraPositionData?
+    
+    init?(json: [String: Any?]) {
+        if let cameraPositionValue = json["cameraPosition"] as? [String: Any?] {
+            self.cameraPosition = CameraPositionData(json: cameraPositionValue)
+        } else {
+            return nil
+        }
+    }
+}

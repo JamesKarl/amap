@@ -26,14 +26,6 @@ class AmapPlugin : MethodCallHandler {
             registrar.platformViewRegistry().registerViewFactory(mapViewType, MapViewFactory(registrar))
         }
     }
-
-    override fun onMethodCall(call: MethodCall, result: Result) {
-        if (call.method == "getPlatformVersion") {
-            result.success("Android ${android.os.Build.VERSION.RELEASE}")
-        } else {
-            result.notImplemented()
-        }
-    }
 }
 
 

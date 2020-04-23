@@ -16,6 +16,22 @@ class MapViewFactory : NSObject, FlutterPlatformViewFactory{
     }
     
     func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        return PlatformMapView(withFrame: frame, viewIdentifier: Int(viewId), arguments: args, registrar: registrar)
+        return PlatformMapView(withFrame: frame, viewIdentifier: Int(viewId), creationParams: parseCreationParams(params: args), registrar: registrar)
+    }
+    
+    private func parseCreationParams(params: Any?) -> MapCreationParams? {
+        var createParams: MapCreationParams? = nil
+
+        if let paramsData = (params as? String)?.data(using: .utf8) {
+            if let json = (try? JSONSerialization.jsonObject(with: paramsData, options: [])) as? [String: Any?] {
+                createParams = MapCreationParams(json: json)
+            }
+        }
+
+        if (params != nil && createParams == nil) {
+            print("MAP", "MapViewFactory params: \(params.debugDescription)")
+        }
+
+        return createParams
     }
 }

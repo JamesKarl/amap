@@ -13,15 +13,15 @@ class PlatformMapView : NSObject, FlutterPlatformView {
     let registrar: FlutterPluginRegistrar
     let frame: CGRect
     let viewId: Int
-    let args: Any?
+    let creationParams: MapCreationParams?
     
     let mapView: MAMapView
     let messageHandler: MapMessageHandler
     
-    init(withFrame frame: CGRect, viewIdentifier viewId: Int, arguments args: Any?, registrar: FlutterPluginRegistrar) {
+    init(withFrame frame: CGRect, viewIdentifier viewId: Int, creationParams: MapCreationParams?, registrar: FlutterPluginRegistrar) {
         self.frame = frame
         self.viewId = viewId
-        self.args = args
+        self.creationParams = creationParams
         self.registrar = registrar
         
         mapView = MAMapView(frame: frame)
