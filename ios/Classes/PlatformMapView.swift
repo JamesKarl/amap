@@ -44,5 +44,12 @@ class PlatformMapView : NSObject, FlutterPlatformView {
                 mapView.setZoomLevel(CGFloat(zoom), animated: false)
             }
         }
+        
+        if let settings = creationParams?.settings {
+            if let s = settings.myLocationButtonEnabled {
+                mapView.showsUserLocation = s
+                mapView.userTrackingMode = .follow
+            }
+        }
     }
 }

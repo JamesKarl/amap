@@ -45,5 +45,9 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>显示当前位置</string>
+	<key>Location</key>
+	<string></string>
 </dict>
 </plist>
