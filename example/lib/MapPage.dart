@@ -18,11 +18,16 @@ class _MapPageState extends State<MapPage> implements MapEventListener {
   @override
   void initState() {
     creationParams = MapCreationParams(
-      cameraPosition: CameraPosition(
-        target: LatLng(30.506097, 114.379612),
-        zoom: 15,
-      ),
-    );
+        cameraPosition: CameraPosition(
+          target: LatLng(30.506097, 114.379612),
+          zoom: 15,
+        ),
+        settings: UiSettings(
+          compassEnabled: true,
+          myLocationButtonEnabled: true,
+          scaleControlsEnabled: true,
+          zoomControlsEnabled: true,
+        ));
     mapViewController = MapViewController(this);
     initAtTime = DateTime.now();
     super.initState();
