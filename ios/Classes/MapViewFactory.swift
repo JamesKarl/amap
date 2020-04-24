@@ -23,7 +23,7 @@ class MapViewFactory : NSObject, FlutterPlatformViewFactory{
     }
     
     func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {
-        return FlutterStringCodec()
+        return FlutterStandardMessageCodec.sharedInstance()
     }
     
     private func parseCreationParams(params: Any?) -> MapCreationParams? {
@@ -36,7 +36,7 @@ class MapViewFactory : NSObject, FlutterPlatformViewFactory{
         }
 
         if (params != nil && createParams == nil) {
-            print("MAP", "MapViewFactory params: \(params.debugDescription)")
+            print("MAP", "parseCreationParams failed \(params.debugDescription)")
         } else {
             print("MAP", "\(String(describing: createParams))")
         }
