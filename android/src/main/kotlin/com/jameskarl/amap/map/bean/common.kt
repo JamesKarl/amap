@@ -66,3 +66,19 @@ data class CameraPositionData(
         return "CameraPositionData(bearing=$bearing, target=$target, tilt=$tilt, zoom=$zoom)"
     }
 }
+
+data class UiSettings(
+        var logoPosition: Int? = null,
+        var zoomPosition: Int? = null,
+        var compassEnabled: Boolean? = null,
+        var gestureScaleByMapCenter: Boolean? = null,
+        var indoorSwitchEnabled: Boolean? = null,
+        var myLocationButtonEnabled: Boolean? = null,
+        var rotateGesturesEnabled: Boolean? = null,
+        var scaleControlsEnabled: Boolean? = null,
+        var scrollGesturesEnabled: Boolean? = null,
+        var tiltGesturesEnabled: Boolean? = null,
+        var zoomControlsEnabled: Boolean? = null,
+        var zoomGesturesEnabled: Boolean? = null,
+        var allGesturesEnabled: Boolean? = null
+) : IJsonEntity

@@ -26,6 +26,10 @@ class AmapPlugin : MethodCallHandler {
             registrar.platformViewRegistry().registerViewFactory(mapViewType, MapViewFactory(registrar))
         }
     }
+
+    override fun onMethodCall(call: MethodCall, result: Result) {
+        result.notImplemented()
+    }
 }
 
 
