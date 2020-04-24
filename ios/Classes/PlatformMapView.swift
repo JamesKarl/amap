@@ -34,4 +34,15 @@ class PlatformMapView : NSObject, FlutterPlatformView {
     func view() -> UIView {
         return mapView
     }
+    
+    func initWithCreationParams() {
+        if let cameraArgs = creationParams?.cameraPosition {
+            if let centerPoint = cameraArgs.target {
+                mapView.setCenter(centerPoint.toMapPoint(), animated: false)
+            }
+            if let zoom = cameraArgs.zoom {
+                mapView.setZoomLevel(CGFloat(zoom), animated: false)
+            }
+        }
+    }
 }

@@ -16,7 +16,9 @@ class MapViewFactory : NSObject, FlutterPlatformViewFactory{
     }
     
     func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        return PlatformMapView(withFrame: frame, viewIdentifier: Int(viewId), creationParams: parseCreationParams(params: args), registrar: registrar)
+        let platformMapView = PlatformMapView(withFrame: frame, viewIdentifier: Int(viewId), creationParams: parseCreationParams(params: args), registrar: registrar)
+        platformMapView.initWithCreationParams()
+        return platformMapView
     }
     
     private func parseCreationParams(params: Any?) -> MapCreationParams? {

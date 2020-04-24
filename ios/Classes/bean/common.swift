@@ -11,15 +11,13 @@ import MAMapKit
 struct LatLngData {
     var latitude: Double = 0.0
     var longitude: Double = 0.0
-    
+
     init(json: [String: Any?]) {
         latitude = json["latitude"] as? Double ?? 0.0
         longitude = json["longitude"] as? Double ?? 0.0
     }
-    
-    init(lat: Double = 0.0, lon: Double = 0.0) {
-        
-    }
+
+    init(lat _: Double = 0.0, lon _: Double = 0.0) {}
 }
 
 struct ScreenPoint {
@@ -33,11 +31,11 @@ struct LatLngBoundsData {
 }
 
 struct CameraPositionData {
-    var bearing: Double? = nil
-    var target: LatLngData? = nil
-    var tilt: Double? = nil
-    var zoom: Double? = nil
-    
+    var bearing: Double?
+    var target: LatLngData?
+    var tilt: Double?
+    var zoom: Double?
+
     init(json: [String: Any?]) {
         bearing = json["bearing"] as? Double
         tilt = json["tilt"] as? Double
@@ -50,10 +48,10 @@ struct CameraPositionData {
 
 struct MapCreationParams {
     let cameraPosition: CameraPositionData?
-    
+
     init?(json: [String: Any?]) {
         if let cameraPositionValue = json["cameraPosition"] as? [String: Any?] {
-            self.cameraPosition = CameraPositionData(json: cameraPositionValue)
+            cameraPosition = CameraPositionData(json: cameraPositionValue)
         } else {
             return nil
         }
