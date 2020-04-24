@@ -50,6 +50,7 @@ struct MapCreationParams {
     let cameraPosition: CameraPositionData?
 
     init?(json: [String: Any?]) {
+        print("MapCreationParams.init", json)
         if let cameraPositionValue = json["cameraPosition"] as? [String: Any?] {
             cameraPosition = CameraPositionData(json: cameraPositionValue)
         } else {

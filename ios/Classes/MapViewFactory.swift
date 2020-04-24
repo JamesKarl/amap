@@ -16,9 +16,14 @@ class MapViewFactory : NSObject, FlutterPlatformViewFactory{
     }
     
     func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
+        print("MapViewFactory.create", frame, viewId, args ?? "args is nil")
         let platformMapView = PlatformMapView(withFrame: frame, viewIdentifier: Int(viewId), creationParams: parseCreationParams(params: args), registrar: registrar)
         platformMapView.initWithCreationParams()
         return platformMapView
+    }
+    
+    func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {
+        return FlutterStringCodec()
     }
     
     private func parseCreationParams(params: Any?) -> MapCreationParams? {
@@ -32,6 +37,8 @@ class MapViewFactory : NSObject, FlutterPlatformViewFactory{
 
         if (params != nil && createParams == nil) {
             print("MAP", "MapViewFactory params: \(params.debugDescription)")
+        } else {
+            print("MAP", "\(String(describing: createParams))")
         }
 
         return createParams
