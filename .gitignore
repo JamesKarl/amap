@@ -76,3 +76,4 @@ flutter_export_environment.sh
 pubspec.lock
 Flutter.podspec
 Podfile.lock
+amap-sdk

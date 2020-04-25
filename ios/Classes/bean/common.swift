@@ -8,7 +8,7 @@
 import Foundation
 import MAMapKit
 
-struct LatLngData {
+struct LatLngData : Codable {
     var latitude: Double = 0.0
     var longitude: Double = 0.0
 
@@ -20,17 +20,17 @@ struct LatLngData {
     init(lat _: Double = 0.0, lon _: Double = 0.0) {}
 }
 
-struct ScreenPoint {
+struct ScreenPoint : Codable {
     var x: Int
     var y: Int
 }
 
-struct LatLngBoundsData {
+struct LatLngBoundsData : Codable {
     var northeast: LatLngData = LatLngData()
     var southwest: LatLngData = LatLngData()
 }
 
-struct CameraPositionData {
+struct CameraPositionData : Codable {
     var bearing: Double?
     var target: LatLngData?
     var tilt: Double?
@@ -48,7 +48,7 @@ struct CameraPositionData {
 
 
 
-struct UiSettings {
+struct UiSettings : Codable {
     var logoPosition: Int?
     var zoomPosition: Int?
     var compassEnabled: Bool?
@@ -80,7 +80,7 @@ struct UiSettings {
     }
 }
 
-struct MapCreationParams {
+struct MapCreationParams : Codable {
     let cameraPosition: CameraPositionData?
     let settings: UiSettings?
     

@@ -35,6 +35,7 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
             }
         })
         mapView.delegate = self
+        mapView.addGestureRecognizer(MapGestureRecognizer())
     }
     
     func onReceiveFlutterMessage(message: String, reply: FlutterReply) {
