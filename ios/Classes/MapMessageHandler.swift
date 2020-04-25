@@ -22,7 +22,11 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
         self.viewId = viewId
         
         self.mapMethodChannelName = "\(SwiftAmapPlugin.mapViewType)/map\(viewId)"
-        self.messageChannel = FlutterBasicMessageChannel.init(name: mapMethodChannelName, binaryMessenger:  registrar.messenger(),codec: FlutterStringCodec.init())
+        self.messageChannel = FlutterBasicMessageChannel.init(
+            name: mapMethodChannelName,
+            binaryMessenger:  registrar.messenger(),
+            codec: FlutterStringCodec.sharedInstance()
+        )
     }
     
     func setup() {
@@ -35,7 +39,6 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
             }
         })
         mapView.delegate = self
-        mapView.addGestureRecognizer(MapGestureRecognizer())
     }
     
     func onReceiveFlutterMessage(message: String, reply: FlutterReply) {
@@ -66,4 +69,13 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
             print("sendJsonMessageToFlutter failed \(message)")
         }
     }
+
+    func mapView(_ mapView: MAMapView!, didSingleTappedAt coordinate: CLLocationCoordinate2D) {
+        sendJsonMessageToFlutter(message: ReplyToFlutter.success(id: MapMethods.onMapClicked, data: coordinate.toLatLngData()))
+    }
+    
+    func mapView(_ mapView: MAMapView!, didAnnotationViewTapped view: MAAnnotationView!) {
+        sendJsonMessageToFlutter(message: ReplyToFlutter.success(id: MapMethods.onMarkerClicked, data: view.toAnnotationViewData()))
+    }
+    
 }

@@ -48,3 +48,32 @@ extension MAPointAnnotation {
 extension MAAnnotation {
    
 }
+
+struct AnnotationViewData {
+    var alpha: Float? = nil
+    var anchorU: Float? = nil
+    var anchorV: Float? = nil
+    var draggable: Bool? = nil
+    var icon: String? = nil //todo
+    var infoWindowOffsetX: Int? = nil
+    var infoWindowOffsetY: Int? = nil
+    var infoWindowEnable: Bool? = nil
+    var period: Int? = nil
+    var position: LatLngData? = nil
+    var rotateAngle: Float? = nil
+    var snippet: String? = nil
+    var title: String? = nil
+    var zIndex: Float? = nil
+    var visible: Bool? = nil
+    var flat: Bool? = nil
+    var extra: Any? = nil
+    var gps: Bool? = nil
+    
+    init(annotationView: MAAnnotationView) {
+        self.alpha = Float(annotationView.alpha)
+        self.title = annotationView.annotation.title
+        self.position = annotationView.annotation.coordinate.toLatLngData()
+        self.snippet = annotationView.annotation.description
+        ///TODO other fields
+    }
+}

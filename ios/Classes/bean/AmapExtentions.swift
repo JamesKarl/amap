@@ -19,10 +19,20 @@ extension CLLocationCoordinate2D {
             return nil
         }
     }
+    
+    func toLatLngData() -> LatLngData {
+        return LatLngData(lat: latitude, lon: longitude)
+    }
 }
 
 extension LatLngData {
      func toMapPoint()-> CLLocationCoordinate2D {
          return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
      }
+}
+
+extension MAAnnotationView {
+    func toAnnotationViewData() -> AnnotationViewData {
+        return AnnotationViewData(annotationView: self)
+    }
 }

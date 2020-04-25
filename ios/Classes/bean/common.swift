@@ -17,7 +17,10 @@ struct LatLngData : Codable {
         longitude = json["longitude"] as? Double ?? 0.0
     }
 
-    init(lat _: Double = 0.0, lon _: Double = 0.0) {}
+    init(lat: Double = 0.0, lon: Double = 0.0) {
+        self.latitude = lat
+        self.longitude = lon
+    }
 }
 
 struct ScreenPoint : Codable {
