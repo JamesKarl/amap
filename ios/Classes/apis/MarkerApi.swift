@@ -45,14 +45,14 @@ class MarkerApi : FlutterApi {
     }
     
     private func addPolyline(mapView: MAMapView, data: Any?) ->  ReplyToFlutter {
-        //        require(data is JSONObject)
-        //        val options: PolylineOptionsData? = data.toString().parseObject()
-        //        if (options != null) {
-        //            map.addPolyline(options.toPolylineOptionsData())
-        //            return ReplyToFlutter.Success()
-        //        } else {
-        //            throw IllegalArgumentException()
-        //        }
+        if let jsonData = data as? [String: Any?] {
+            if let polylineOptionData = PolylineOptionsData(json: jsonData) {
+                if let polyline = polylineOptionData.getPolyline() {
+                    mapView.addOverlays([polyline])
+                }
+                
+            }
+        }
         return ReplyToFlutter.notImplemented()
     }
     
