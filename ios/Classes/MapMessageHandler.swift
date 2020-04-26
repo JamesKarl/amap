@@ -71,7 +71,7 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
     }
 
     func mapView(_ mapView: MAMapView!, didSingleTappedAt coordinate: CLLocationCoordinate2D) {
-        sendJsonMessageToFlutter(message: ReplyToFlutter.success(id: MapMethods.onMapClicked, data: coordinate.toLatLngData()))
+        sendJsonMessageToFlutter(message: ReplyToFlutter.success(id: MapMethods.onMapClicked, data: coordinate.toMap()))
     }
     
     func mapView(_ mapView: MAMapView!, didAnnotationViewTapped view: MAAnnotationView!) {

@@ -23,6 +23,13 @@ extension CLLocationCoordinate2D {
     func toLatLngData() -> LatLngData {
         return LatLngData(lat: latitude, lon: longitude)
     }
+    
+    func toMap() -> [String:Double] {
+        return [
+            "latitude" : latitude,
+            "longitude" : longitude
+        ]
+    }
 }
 
 extension LatLngData {

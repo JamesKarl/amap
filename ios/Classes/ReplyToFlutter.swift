@@ -37,6 +37,12 @@ class ReplyToFlutter {
     }
     
     func toJson() -> String? {
+        if let d = data {
+            if !JSONSerialization.isValidJSONObject(d) {
+                print("\(d) is not valid JSONObject")
+                return nil
+            }
+        }
         let jsonData = [
             "id": id,
             "success": success,
