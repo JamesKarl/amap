@@ -65,5 +65,6 @@ class PolylineOptionsData : Codable {
 //        if let points = points?.map({ CLLocationCoordinate2DMake($0.latitude, $0.longitude)}) {
 //            return MAMultiPolyline.init(points: &points, count: UInt(points.count), drawStyleIndexes: [])
 //        }
+        return nil
     }
 }

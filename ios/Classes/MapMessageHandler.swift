@@ -78,4 +78,8 @@ class MapMessageHandler : NSObject, MAMapViewDelegate {
         sendJsonMessageToFlutter(message: ReplyToFlutter.success(id: MapMethods.onMarkerClicked, data: view.toAnnotationViewData()))
     }
     
+    func mapViewRequireLocationAuth(_ locationManager: CLLocationManager!) {
+        locationManager.requestAlwaysAuthorization()
+    }
+    
 }
